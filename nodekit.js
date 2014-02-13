@@ -25,7 +25,21 @@ var url = require("url");
 				if( handler !== undefined && handler !== null && handler.supports(request.method))
 				{
 					console.log("reponds with handler");
-					handler.respond(request,response);	
+					
+					if(request.method == "POST")
+					{
+						var body = '';
+				        request.on('data', function (data) {
+				            body += data;
+				        });
+				        request.on('end', function () {
+				
+				            request.nodekitbody = body;
+				        	handler.respond(request,response);
+				        });
+					}else{
+						handler.respond(request,response);	
+					}
 				}
 				else
 				{

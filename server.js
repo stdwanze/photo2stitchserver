@@ -8,8 +8,15 @@ var router = new nodekit.router();
 
 router.registerHandler(function (req,response){
 	
+	
 	response.writeHead(200, {"Content-Type": "text/plain"});
     response.write("Hello World");
+    
+	if(req.nodekitbody !== undefined)
+	{
+		response.write(req.nodekitbody);
+	}
+	
     response.end();
 	
 	
