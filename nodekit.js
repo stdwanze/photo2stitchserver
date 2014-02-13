@@ -1,5 +1,5 @@
 
-NodeKit = NodeKit || {};
+var NodeKit = NodeKit || {};
 
 var http = require("http");
 var url = require("url");
