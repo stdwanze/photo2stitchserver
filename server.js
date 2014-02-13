@@ -14,6 +14,7 @@ router.registerHandler(function (req,response){
     
 	if(req.nodekitbody !== undefined)
 	{
+		console.log(req.nodekitbody);
 		response.write(req.nodekitbody);
 	}
 	
