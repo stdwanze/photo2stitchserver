@@ -15,7 +15,7 @@ router.registerHandler(function (req,response){
 	
 },"photo2stitch",["GET"]);
 
-server.registerRouter = router;
+server.registerRouter(router);
 server.run();
 
 console.log("server started");
