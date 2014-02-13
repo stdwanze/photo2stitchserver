@@ -13,24 +13,36 @@ var url = require("url");
 			this.handlers = {};
 			this.route = function (request,response) {
 				
+				console.log("route");
+				
 				var parsedUrl = url.parse(request.url);
+				console.log("parsedUrl.pathname: "+parsedUrl.pathname);
+				
 				
 				var handler = this.handlers[parsedUrl.pathname];
-				
+				if( handler !== undefined || handler !== null) console.log("handler found");
+				else  console.log("no handler found");
 				if(handler.supports(request.method))
 				{
+					console.log("reponds with handler");
 					handler.respond(request,response);	
 				}
 				else
 				{
-					response.writeHead(404, {"Content-Type": "text/plain"});
-				    response.write("No router registered");
+					console.log("reponds without handler");
+					response.writeHead(200, {"Content-Type": "text/plain"});
+				    response.write("No handler registered");
 				    response.end();
 				}			
 			};
 			
 			this.build = function ()
 			{
+				for(var key in this.handlers)
+				{
+					console.log("handler: "+key);
+				}
+				
 				return this.route.bind(this);
 			};
 			
@@ -66,12 +78,16 @@ var url = require("url");
 			this.port = port;
 			this.router = null;
 			this.respond = function (req, res) {
+				
+				console.log("request recieved");
+				
 				if(this.router !== null )
 				{
+					console.log("router registered");
 					this.router(req,res) ;
 				}else
 				{
-					response.writeHead(404, {"Content-Type": "text/plain"});
+					response.writeHead(200, {"Content-Type": "text/plain"});
 				    response.write("No router registered");
 				    response.end();
 				}
