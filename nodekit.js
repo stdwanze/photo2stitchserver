@@ -31,6 +31,10 @@ var url = require("url");
 						var body = '';
 				        request.on('data', function (data) {
 				            body += data;
+				            if (body.length > 1e7) { // ~ 10 mb
+             			    // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
+                			request.connection.destroy();
+            				}
 				        });
 				        request.on('end', function () {
 				
