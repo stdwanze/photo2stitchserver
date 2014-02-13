@@ -1,6 +1,6 @@
 
 
-var nodekit = require("nodekit");
+var nodekit = require("./nodekit");
 
 
 var server = new nodekit.server(8080);
