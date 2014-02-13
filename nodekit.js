@@ -1,5 +1,5 @@
 
-NodeKit = window.NodeKit || {};
+NodeKit = NodeKit || {};
 
 var http = require("http");
 var url = require("url");
@@ -94,7 +94,7 @@ var url = require("url");
 	}());
 	
 	return NodeKit;
-}(window.NodeKit || {}));
+}(NodeKit || {}));
 
 
 exports.server = NodeKit.Server;
