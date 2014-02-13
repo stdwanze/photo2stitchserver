@@ -20,9 +20,9 @@ var url = require("url");
 				
 				
 				var handler = this.handlers[parsedUrl.pathname];
-				if( handler !== undefined || handler !== null) console.log("handler found");
+				if( handler !== undefined && handler !== null) console.log("handler found");
 				else  console.log("no handler found");
-				if(handler.supports(request.method))
+				if( handler !== undefined && handler !== null && handler.supports(request.method))
 				{
 					console.log("reponds with handler");
 					handler.respond(request,response);	
