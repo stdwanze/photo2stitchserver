@@ -20,7 +20,7 @@ router.registerHandler(function (req,response){
     response.end();
 	
 	
-},"/photo2stitch",["GET"]);
+},"/photo2stitch",["GET", "POST"]);
 
 server.registerRouter(router);
 server.run();
