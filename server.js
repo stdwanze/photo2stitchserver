@@ -15,7 +15,8 @@ router.registerHandler(function (req,response){
 	if(req.nodekitfiles !== undefined)
 	{
 		console.log(req.nodekitfiles.length);
-		response.write(req.nodekitfiles.length +" -> " +req.nodekitfiles[0].size + " name: "+req.nodekitfiles[0].name);
+		response.write(JSON.stringify(req.nodekitfiles));
+	//	response.write(req.nodekitfiles.length +" -> " +req.nodekitfiles[0].size + " name: "+req.nodekitfiles[0].name);
 	}
 	
     response.end();
