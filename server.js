@@ -9,17 +9,19 @@ var router = new nodekit.router();
 router.registerHandler(function (req,response){
 	
 	
-	response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("Hello World");
+	
     
 	if(req.nodekitfiles !== undefined)
 	{
+		response.writeHead(200, {"Content-Type": "application/json"});
+    
 		console.log(req.nodekitfiles.length);
 		response.write(JSON.stringify(req.nodekitfiles));
 	//	response.write(req.nodekitfiles.length +" -> " +req.nodekitfiles[0].size + " name: "+req.nodekitfiles[0].name);
 	}
 	else
 	{
+			response.writeHead(200, {"Content-Type": "text/html"});
 		response.write("<!DOCTYPE HTML>"+
 "<html>"+
 "	<head>"+
