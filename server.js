@@ -12,10 +12,10 @@ router.registerHandler(function (req,response){
 	response.writeHead(200, {"Content-Type": "text/plain"});
     response.write("Hello World");
     
-	if(req.nodekitbody !== undefined)
+	if(req.nodekitfiles !== undefined)
 	{
-		console.log(req.nodekitbody);
-		response.write(req.nodekitbody);
+		console.log(req.nodekitfiles.length);
+		response.write(req.nodekitfiles.length +" -> " +req.nodekitfiles[0].size + " name: "+req.nodekitfiles[0].name);
 	}
 	
     response.end();

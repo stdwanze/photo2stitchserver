@@ -3,6 +3,8 @@ var NodeKit = NodeKit || {};
 
 var http = require("http");
 var url = require("url");
+var formidable = require("formidable");
+
 (function (NodeKit) {
 	"use strict";
 	
@@ -28,19 +30,15 @@ var url = require("url");
 					
 					if(request.method == "POST")
 					{
-						var body = '';
-				        request.on('data', function (data) {
-				            body += data;
-				            if (body.length > 1e7) { // ~ 10 mb
-             			    // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
-                			request.connection.destroy();
-            				}
-				        });
-				        request.on('end', function () {
-				
-				            request.nodekitbody = body;
-				        	handler.respond(request,response);
-				        });
+						
+						var form = new formidable.IncomingForm();
+						form.parse(request,function (err, fields, files){
+							request.nodekitfields = fields;
+							request.nodekitfiles = files;
+					    	handler.respond(request,response);
+						}) ;
+						
+						
 					}else{
 						handler.respond(request,response);	
 					}
