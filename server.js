@@ -18,6 +18,21 @@ router.registerHandler(function (req,response){
 		response.write(JSON.stringify(req.nodekitfiles));
 	//	response.write(req.nodekitfiles.length +" -> " +req.nodekitfiles[0].size + " name: "+req.nodekitfiles[0].name);
 	}
+	else
+	{
+		response.write("<!DOCTYPE HTML>"+
+"<html>"+
+"	<head>"+
+"		"+
+"	</head>"+
+"	<body>"+
+"		<form action='http://nodeone.cloudapp.net/photo2stitch'  method='post'  enctype='multipart/form-data'>"+
+"				<input id='photopath' type='file' size='50' maxlength='1000000' name='file' /><div>"+
+"				<input type='submit' value='Submit'>"+
+"		</form>"+
+"	</body>"+
+"</html>");
+	}
 	
     response.end();
 	
