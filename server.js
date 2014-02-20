@@ -46,7 +46,7 @@ router.registerHandler(function (req,response){
 			var image = new Canvas.Image;
 			image.src = original_data;
 			
-			scaleDown(canvas, ctxt,original_data);
+			scaleDown(canvas, ctxt,image);
 			image.src = original_data = canvas.toBuffer();
 			
 			
