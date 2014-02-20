@@ -122,7 +122,9 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 							fileStream.pipe(res);
 						});
 					};
-					this.serve404 = this.serverStaticHtml.apply("/goaway.htm");
+					this.serve404 = function (res) {
+						this.serverStaticHtml("/goaway.htm",res);
+					};
 				}
 
 				return server;
