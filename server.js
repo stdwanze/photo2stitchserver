@@ -23,8 +23,8 @@ router.registerHandler(function (req,response){
 			resultJSON.nkFiles = req.nodekitfiles;
 			resultJSON.bufferSize = base64String.length;
 			response.write(JSON.stringify(resultJSON));
-			
-			fs.unlink(req.nodekitfiles.file.path, function (){});
+			fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
+			response.end();
 		});
 		
 		
@@ -44,9 +44,10 @@ router.registerHandler(function (req,response){
 "		</form>"+
 "	</body>"+
 "</html>");
+		 response.end();
 	}
 	
-    response.end();
+   
 	
 	
 },"/photo2stitch",["GET", "POST"]);
