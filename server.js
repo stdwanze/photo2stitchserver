@@ -17,14 +17,14 @@ router.registerHandler(function (req,response){
     
 		console.log(req.nodekitfiles.length);
 		var resultJSON = {};
-		fs.readFile(req.nodefiles.file.path, function(err, original_data){
+		fs.readFile(req.nodekitfiles.file.path, function(err, original_data){
 			var base64String = original_data.toString("base64");
 			
 			resultJSON.nkFiles = req.nodekitfiles;
 			resultJSON.bufferSize = base64String.length;
 			response.write(JSON.stringify(resultJSON));
 			
-			fs.unlink(req.nodefiles.file.path, function (){});
+			fs.unlink(req.nodekitfiles.file.path, function (){});
 		});
 		
 		
