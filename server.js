@@ -1,7 +1,7 @@
 
 
 var nodekit = require("./nodekit");
-
+var fs = require("fs");
 
 var server = new nodekit.server(8080);
 var router = new nodekit.router();
@@ -16,8 +16,18 @@ router.registerHandler(function (req,response){
 		response.writeHead(200, {"Content-Type": "application/json"});
     
 		console.log(req.nodekitfiles.length);
-		response.write(JSON.stringify(req.nodekitfiles));
-	//	response.write(req.nodekitfiles.length +" -> " +req.nodekitfiles[0].size + " name: "+req.nodekitfiles[0].name);
+		var resultJSON = {};
+		fs.readFile(req.nodefiles.file.path, function(err, original_data){
+			var base64String = original_data.toString("base64");
+			
+			resultJSON.nkFiles = req.nodekitfiles;
+			resultJSON.bufferSize = base64String.length;
+			response.write(JSON.stringify(resultJSON));
+			
+			fs.unlink(req.nodefiles.file.path, function (){});
+		});
+		
+		
 	}
 	else
 	{
