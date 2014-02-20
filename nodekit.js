@@ -4,6 +4,8 @@ var NodeKit = NodeKit || {};
 var http = require("http");
 var url = require("url");
 var formidable = require("formidable");
+var path = require("path"),
+var fs = require("fs");
 
 (function (NodeKit) {
 	"use strict";
@@ -120,6 +122,24 @@ var formidable = require("formidable");
 			this.registerRouter = function (nodekitrouter)
 			{
 				this.router = nodekitrouter.build();
+			};
+			this.serverStaticHtml = function (relpathFile, res)
+			{
+				var filename = path.join(process.cwd(), relpathFile);
+				 path.exists(filename, function(exists) {
+		        if(!exists) {
+		            console.log("not exists: " + filename);
+		            res.writeHead(200, {'Content-Type': 'text/plain'});
+		            res.write('404 Not Found\n');
+		            res.end();
+		            return;
+		        }
+		      
+		        res.writeHead(200, {'Content-Type': "text/html"});
+		
+		        var fileStream = fs.createReadStream(filename);
+		        fileStream.pipe(res);
+
 			};
 		}
 		return server;

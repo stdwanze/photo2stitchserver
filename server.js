@@ -31,7 +31,9 @@ router.registerHandler(function (req,response){
 	}
 	else
 	{
-			response.writeHead(200, {"Content-Type": "text/html"});
+		
+		server.serverStaticHtml("/form.html",response);
+	/*		response.writeHead(200, {"Content-Type": "text/html"});
 		response.write("<!DOCTYPE HTML>"+
 "<html>"+
 "	<head>"+
@@ -44,7 +46,7 @@ router.registerHandler(function (req,response){
 "		</form>"+
 "	</body>"+
 "</html>");
-		 response.end();
+		 response.end();*/
 	}
 	
    
