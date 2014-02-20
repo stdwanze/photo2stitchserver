@@ -45,6 +45,7 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 							response.write("No handler registered");
 							response.end();
 						}
+						console.log("route end");
 					};
 
 					this.build = function() {
@@ -88,11 +89,12 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 							console.log("router registered");
 							this.router(req, res);
 						} else {
-							response.writeHead(200, {
+							this.serve404(res);
+							/*response.writeHead(200, {
 								"Content-Type" : "text/plain"
 							});
 							response.write("No router registered");
-							response.end();
+							response.end();*/
 						}
 					};
 					this.http = http.createServer(this.respond.bind(this));
@@ -109,13 +111,7 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 						var filename = path.join(process.cwd(), relpathFile);
 						path.exists(filename, function(exists) {
 							if (!exists) {
-								console.log("not exists: " + filename);
-								res.writeHead(200, {
-									'Content-Type' : 'text/plain'
-								});
-								res.write('404 Not Found\n');
-								res.end();
-								return;
+								filename = path.join(process.cwd(),"/goaway.htm");
 							}
 
 							res.writeHead(200, {
@@ -126,6 +122,7 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 							fileStream.pipe(res);
 						});
 					};
+					this.serve404 = this.serverStaticHtml.apply("/goaway.htm");
 				}
 
 				return server;

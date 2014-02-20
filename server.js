@@ -2,13 +2,34 @@
 
 var nodekit = require("./nodekit");
 var fs = require("fs");
+var Canvas = require("canvas");
 
 var server = new nodekit.server(8080);
 var router = new nodekit.router();
-
 router.registerHandler(function (req,response){
 	
 	
+	function getScaleDimesions(canvas, image) {
+		var newDimensions = {
+			width : 1,
+			height : 1
+		};
+
+		var xScale = image.width / (canvas.width );
+		var yScale = image.height / (canvas.height);
+		var scale = xScale > yScale ? xScale : yScale;
+
+		newDimensions.width = Math.floor(image.width / scale);
+		newDimensions.height = Math.floor(image.height / scale);
+
+		return newDimensions;
+	};
+
+	function scaleDown(canvas,ctxt,image)
+	{
+		var dimensions = getScaleDimesions(canvas,image);
+		ctxt.drawImage(image, 0, 0, dimensions.width , dimensions.height );
+	}
 	
     
 	if(req.nodekitfiles !== undefined)
@@ -18,10 +39,21 @@ router.registerHandler(function (req,response){
 		console.log(req.nodekitfiles.length);
 		var resultJSON = {};
 		fs.readFile(req.nodekitfiles.file.path, function(err, original_data){
-			var base64String = original_data.toString("base64");
 			
+			
+			var canvas = new Canvas(1024,1024);
+			var ctxt = canvas.getContext("2d");
+			var image = new Image();
+			image.src = original_data;
+			
+			scaleDown(canvas, ctxt,original_data);
+			image.src = original_data = canvas.toBuffer();
+			
+			
+			var base64String = original_data.toString("base64");
 			resultJSON.nkFiles = req.nodekitfiles;
 			resultJSON.bufferSize = base64String.length;
+			
 			response.write(JSON.stringify(resultJSON));
 			fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
 			response.end();
@@ -31,22 +63,7 @@ router.registerHandler(function (req,response){
 	}
 	else
 	{
-		
-		server.serverStaticHtml("/form.html",response);
-	/*		response.writeHead(200, {"Content-Type": "text/html"});
-		response.write("<!DOCTYPE HTML>"+
-"<html>"+
-"	<head>"+
-"		"+
-"	</head>"+
-"	<body>"+
-"		<form action='http://nodetwo.cloudapp.net/photo2stitch'  method='post'  enctype='multipart/form-data'>"+
-"				<input id='photopath' type='file' size='50' maxlength='1000000' name='file' /><div>"+
-"				<input type='submit' value='Submit'>"+
-"		</form>"+
-"	</body>"+
-"</html>");
-		 response.end();*/
+		server.serverStaticHtml("/form.htm",response);
 	}
 	
    
