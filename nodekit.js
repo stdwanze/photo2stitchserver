@@ -108,8 +108,9 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 						this.router = nodekitrouter.build();
 					};
 					this.serverStaticHtml = function(relpathFile, res) {
+						console.log("serve: "+relpathFile);
 						var filename = path.join(process.cwd(), relpathFile);
-						path.exists(filename, function(exists) {
+						fs.exists(filename, function(exists) {
 							if (!exists) {
 								filename = path.join(process.cwd(),"/goaway.htm");
 							}

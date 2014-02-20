@@ -43,7 +43,7 @@ router.registerHandler(function (req,response){
 			
 			var canvas = new Canvas(1024,1024);
 			var ctxt = canvas.getContext("2d");
-			var image = new Image();
+			var image = new Image;
 			image.src = original_data;
 			
 			scaleDown(canvas, ctxt,original_data);
