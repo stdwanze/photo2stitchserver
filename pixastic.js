@@ -1351,13 +1351,49 @@ Pixastic.Effects = (function() {
                 }
             }
         },
-        
+        mosaic : function (inData,outData,width,height, options, progess)
+        {
+        	var blockSize = Math.max(1,parseInt(options.blockSize,10));
+			n = width * height * 4;
+		
+			for(var currStart = 0; currStart < n -blockSize; currStart+= blockSize)
+			{
+				for(var lines = 0 ; lines < blockSize ; lines++)
+				{
+					var localStart = currStart +(lines*width);
+					var colorR,colorB,colorG;
+					colorR = inData[localStart];
+					colorB = inData[localStart+1];
+					colorG = inData[localStart+2];
+					
+					
+					for(var cursor = 0 ; cursor < blockSize*4; cursor+=4)
+					{
+						outData[cursor+localStart] = colorR;
+						outData[cursor+localStart+1] = colorB;
+						outData[cursor+localStart+2] = colorG;
+					
+					}
+				}
+				if (progress) {
+                    prog = (currStart/n*100 >> 0) / 100;
+                    if (prog > lastProg) {
+                        lastProg = progress(prog);
+                    }
+                }
+			}
+			
+			
+
+			return true;
+		
+        },
         posterize : function(inData, outData, width, height, options, progress) {
             var numLevels = clamp(options.levels, 2, 256),
                 numAreas = 256 / numLevels,
                 numValues = 256 / (numLevels-1),
                 r, g, b,
-                n = width * height * 4,
+               
                 prog, lastProg = 0;
 
             for (i=0;i<n;i+=4) {

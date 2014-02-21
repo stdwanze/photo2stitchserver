@@ -59,6 +59,9 @@ router.registerHandler(function (req,response){
 			scaleDown(canvas, ctxt,image);
 			//image.src = original_data = canvas.toBuffer();
 			P["desaturate"]().done(function (){
+			P["posterize"]({levels : 5 }).done(function (){
+				
+			
 				original_data = canvas.toBuffer();
 				var base64String = original_data.toString("base64");
 				resultJSON.nkFiles = req.nodekitfiles;
@@ -66,6 +69,7 @@ router.registerHandler(function (req,response){
 				
 				fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
 				deliverImageHTML(response,base64String);
+			});
 			});
 			/*
 			 * 	Pixastic.process(ret,"crop",this.cropDimensionsTo(dimensions,this.blockSize())).done(function (ret){
