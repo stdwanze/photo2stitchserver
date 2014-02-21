@@ -52,15 +52,15 @@ router.registerHandler(function (req,response){
 			var ctxt = canvas.getContext("2d");
 			var image = new Canvas.Image;
 			
-			P = new P._Pixastic(ctxt);
+			var pixastic = new P._Pixastic(ctxt);
 			
 			
 			image.src = original_data;
 			scaleDown(canvas, ctxt,image);
 			//image.src = original_data = canvas.toBuffer();
-			P["desaturate"]().done(function (){
-			P["posterize"]({levels : 5 }).done(function (){
-			P["mosaic"]({blockSize : 10 }).done(function (){
+			pixastic["desaturate"]().done(function (){
+			pixastic["posterize"]({levels : 5 }).done(function (){
+			pixastic["mosaic"]({blockSize : 10 }).done(function (){
 				
 			
 				original_data = canvas.toBuffer();
