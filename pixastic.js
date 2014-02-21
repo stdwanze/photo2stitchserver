@@ -1357,12 +1357,16 @@ Pixastic.Effects = (function() {
 			n = width * height * 4;
 			console.log("buffer length = "+inData.length);
 			console.log("width * height * 4 = "+n + " ("+width+"/"+height+")");
-			
+			var visitedStartPoints = {};
 			for(var currStart = 0; currStart < n -blockSize*4; currStart+= blockSize*4)
 			{
+				if(visitedStartPoints[""+currStart]) continue;
+				
 				for(var lines = 0 ; lines < blockSize ; lines++)
 				{
+				
 					var localStart = currStart +(lines*width);
+					visitedStartPoints[""+localStart] = true;
 					var colorR,colorB,colorG;
 					colorR = inData[localStart];
 					colorB = inData[localStart+1];
