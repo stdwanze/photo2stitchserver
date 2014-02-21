@@ -1407,6 +1407,12 @@ Pixastic.Effects = (function() {
 						outData[cursor+3] = alpha;
 					}
 				}
+				if (progress) {
+                    prog = (currBlock/blockCount*100 >> 0) / 100;
+                    if (prog > lastProg) {
+                        lastProg = progress(prog);
+                    }
+                }
 				
 			}
 				
@@ -1416,7 +1422,7 @@ Pixastic.Effects = (function() {
                 numAreas = 256 / numLevels,
                 numValues = 256 / (numLevels-1),
                 r, g, b,
-               
+                n = width * height * 4,
                 prog, lastProg = 0;
 
             for (i=0;i<n;i+=4) {
