@@ -1351,6 +1351,17 @@ Pixastic.Effects = (function() {
                 }
             }
         },
+         test : function (inData,outData,width,height, options, progress)
+        {
+        	n = width * height * 4;
+        	for(var i = 0; i < n/4; i=i+4 )
+        	{
+        		outData[i] = 0;
+				outData[i+1] = 0;
+				outData[i+2] = 0;
+				outData[i+3] = inData[i+3];
+        	}
+        },
         mosaic : function (inData,outData,width,height, options, progress)
         {
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
