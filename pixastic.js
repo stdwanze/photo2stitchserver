@@ -1351,7 +1351,7 @@ Pixastic.Effects = (function() {
                 }
             }
         },
-        mosaic : function (inData,outData,width,height, options, progess)
+        mosaic : function (inData,outData,width,height, options, progress)
         {
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
 			n = width * height * 4;
@@ -1382,11 +1382,7 @@ Pixastic.Effects = (function() {
                     }
                 }
 			}
-			
-			
-
-			return true;
-		
+				
         },
         posterize : function(inData, outData, width, height, options, progress) {
             var numLevels = clamp(options.levels, 2, 256),
