@@ -1378,8 +1378,8 @@ Pixastic.Effects = (function() {
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
 			n = width * height * 4;
 			
-			var blocksPerLine = Math.round(width/(blockSize*4));
-			var blocksPerRow = Math.round(height/(blockSize*4));
+			var blocksPerLine = Math.round(width/(blockSize));
+			var blocksPerRow = Math.round(height/(blockSize));
 			
 			var blockCount = blocksPerLine*blocksPerRow;
 			console.log("blockcount: "+blockCount + "perLine "+blocksPerLine+ " perRow "+blocksPerRow);
