@@ -1380,6 +1380,10 @@ Pixastic.Effects = (function() {
 						outData[cursor+localStart+2] = colorG;
 						outData[cursor+localStart+3] = inData[cursor+localStart+3];
 					}
+					outData[localStart] = 255;
+					outData[localStart+1] = 0;
+					outData[localStart+2] = 0;
+					outData[+localStart+3] = inData[cursor+localStart+3];
 				}
 				if (progress) {
                     prog = (currStart/n*100 >> 0) / 100;
