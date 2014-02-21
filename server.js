@@ -3,7 +3,7 @@
 var nodekit = require("./nodekit");
 var fs = require("fs");
 var Canvas = require("canvas");
-
+var P = require("pixastic");
 var server = new nodekit.server(8080);
 var router = new nodekit.router();
 router.registerHandler(function (req,response){
@@ -21,7 +21,7 @@ router.registerHandler(function (req,response){
 
 		newDimensions.width = Math.floor(image.width / scale);
 		newDimensions.height = Math.floor(image.height / scale);
-
+	
 		return newDimensions;
 	};
 
@@ -29,6 +29,9 @@ router.registerHandler(function (req,response){
 	{
 		var dimensions = getScaleDimesions(canvas,image);
 		ctxt.drawImage(image, 0, 0, dimensions.width , dimensions.height );
+		canvas.width = dimensions.width;
+		canvas.heigth = dimensions.heigth;
+		
 	}
 	
 	function deliverImageHTML(response,base64buffer)
@@ -49,8 +52,11 @@ router.registerHandler(function (req,response){
 			var canvas = new Canvas(1024,1024);
 			var ctxt = canvas.getContext("2d");
 			var image = new Canvas.Image;
-			image.src = original_data;
 			
+			P = new _Pixastic(ctxt);
+			
+			
+			image.src = original_data;
 			scaleDown(canvas, ctxt,image);
 			image.src = original_data = canvas.toBuffer();
 			
