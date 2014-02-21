@@ -1402,7 +1402,7 @@ Pixastic.Effects = (function() {
 						outData[cursor] = colorR;
 						outData[cursor+1] = colorB;
 						outData[cursor+2] =colorG;
-						outData[cursor+3] = apha;
+						outData[cursor+3] = alpha;
 					}
 				}
 				
