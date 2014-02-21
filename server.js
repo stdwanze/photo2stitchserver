@@ -72,6 +72,7 @@ router.registerHandler(function (req,response){
 				deliverImageHTML(response,base64String);
 			});
 			});
+			});
 			/*
 			 * 	Pixastic.process(ret,"crop",this.cropDimensionsTo(dimensions,this.blockSize())).done(function (ret){
 						Pixastic.process(ret, "desaturate", {average : false}).done( function (ret)	{
