@@ -31,11 +31,16 @@ router.registerHandler(function (req,response){
 		ctxt.drawImage(image, 0, 0, dimensions.width , dimensions.height );
 	}
 	
+	function deliverImageHTML(response,base64buffer)
+	{
+		response.writeHead(200, {"Content-Type": "text/html"});
+		response.wirte("<!DOCTYPE HTML><html><head></head><body><img src='data:image/gif;base64,"+base64buffer+"'></body>");
+		response.end();
+	}
     
 	if(req.nodekitfiles !== undefined)
 	{
-		response.writeHead(200, {"Content-Type": "application/json"});
-    
+		
 		console.log(req.nodekitfiles.length);
 		var resultJSON = {};
 		fs.readFile(req.nodekitfiles.file.path, function(err, original_data){
@@ -54,9 +59,8 @@ router.registerHandler(function (req,response){
 			resultJSON.nkFiles = req.nodekitfiles;
 			resultJSON.bufferSize = base64String.length;
 			
-			response.write(JSON.stringify(resultJSON));
 			fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
-			response.end();
+			deliverImageHTML(response,original_data);	
 		});
 		
 		
