@@ -1362,12 +1362,13 @@ Pixastic.Effects = (function() {
         	{
         		if(p % 2 > 0)
         		{
-        			for(var i = 0; i < 100; i=i+4 )
+        			for(var i = 0; i < 400; i=i+4 )
 		        	{
-		        		outData[i] = 0;
-						outData[i+1] = 0;
-						outData[i+2] = 0;
-						outData[i+3] = inData[i+3];
+		        		var cursor = p*400+i;
+		        		outData[cursor] = 0;
+						outData[cursor+1] = 0;
+						outData[cursor+2] = 0;
+						outData[cursor+3] = inData[i+3];
 		        	}
 	        	}
         	}
