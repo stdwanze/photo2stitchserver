@@ -30,9 +30,7 @@ router.registerHandler(function (req,response){
 	{
 		var dimensions = getScaleDimesions(canvas,image);
 		ctxt.drawImage(image, 0, 0, dimensions.width , dimensions.height );
-		canvas.width = dimensions.width;
-		canvas.heigth = dimensions.heigth;
-		
+	
 	}
 	
 	function deliverImageHTML(response,base64buffer)
@@ -59,7 +57,7 @@ router.registerHandler(function (req,response){
 			
 			image.src = original_data;
 			scaleDown(canvas, ctxt,image);
-			image.src = original_data = canvas.toBuffer();
+			//image.src = original_data = canvas.toBuffer();
 			P["desaturate"]().done(function (){
 				original_data = canvas.toBuffer();
 				var base64String = original_data.toString("base64");
