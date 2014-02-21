@@ -1409,7 +1409,7 @@ Pixastic.Effects = (function() {
 					console.log("processing line: "+(l-1) +"last startpoint at "+startPoint);
 				}
 				
-				for( var line = 0; line < blockSize ; line = line +1)
+				for( var line = 0; line <= blockSize ; line = line +1)
 				{
 					var lineStart = startPoint+(line*width*4);
 					for(var pixel = 0; pixel < blockSize; pixel = pixel +1)
