@@ -59,8 +59,8 @@ router.registerHandler(function (req,response){
 			scaleDown(canvas, ctxt,image);
 			//image.src = original_data = canvas.toBuffer();
 			pixastic["desaturate"]().done(function (){
-			pixastic["posterize"]({levels : 5 }).done(function (){
 			pixastic["mosaic"]({blockSize : 10 }).done(function (){
+			pixastic["posterize"]({levels : 5 }).done(function (){
 				
 			
 				original_data = canvas.toBuffer();
