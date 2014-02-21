@@ -172,7 +172,7 @@
         
         this.onmessage = function() {};
 
-    }
+    };
 
 
     

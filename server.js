@@ -60,14 +60,24 @@ router.registerHandler(function (req,response){
 			image.src = original_data;
 			scaleDown(canvas, ctxt,image);
 			image.src = original_data = canvas.toBuffer();
+			P["desaturate"]().done(function (){
+				original_data = canvas.toBuffer();
+				var base64String = original_data.toString("base64");
+				resultJSON.nkFiles = req.nodekitfiles;
+				resultJSON.bufferSize = base64String.length;
+				
+				fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
+				deliverImageHTML(response,base64String);
+			});
+			/*
+			 * 	Pixastic.process(ret,"crop",this.cropDimensionsTo(dimensions,this.blockSize())).done(function (ret){
+						Pixastic.process(ret, "desaturate", {average : false}).done( function (ret)	{
+						Pixastic.process(ret, "mosaic", {blockSize: this.blockSize()}).done(function (ret){
+						Pixastic.process(ret, "posterize", {levels : this.posterizeLevel()+1}).done( function (ret){
+			 * 
+			 */
 			
-			
-			var base64String = original_data.toString("base64");
-			resultJSON.nkFiles = req.nodekitfiles;
-			resultJSON.bufferSize = base64String.length;
-			
-			fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
-			deliverImageHTML(response,base64String);	
+				
 		});
 		
 		
