@@ -30,20 +30,7 @@
             workerControlPath = workerControlPath || "";
 
         if (!worker) {
-            if (typeof window.Worker != "undefined") {
-                try {
-                    worker = new window.Worker(workerControlPath + "pixastic.worker.control.js");
-                } catch(e) {
-                    if (location.protocol == "file:") {
-                        Pixastic.log("Could not create real worker, running from file://");
-                    } else {
-                        Pixastic.log("Could not create real worker.");
-                    }
-                }
-            }
-            if (!worker) {
-                worker = new Pixastic.Worker();
-            }
+			worker = new Pixastic.Worker();
         }
             
         for (var e in Pixastic.Effects) {

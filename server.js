@@ -54,7 +54,7 @@ router.registerHandler(function (req,response){
 			var ctxt = canvas.getContext("2d");
 			var image = new Canvas.Image;
 			
-			P = new _Pixastic(ctxt);
+			P = new P._Pixastic(ctxt);
 			
 			
 			image.src = original_data;
