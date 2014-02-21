@@ -1354,20 +1354,21 @@ Pixastic.Effects = (function() {
          test : function (inData,outData,width,height, options, progress)
         {
         	n = width * height * 4;
-        	var parts = n/100;
-        	for(var p = 0; p < parts; parts++)
+        	var parts = n/400;
+        	
+        	
+        	
+        	for(var p = 0; p < parts; p= p+1)
         	{
         		if(p % 2 > 0)
         		{
-        			
-        		
-        		for(var i = 0; i < 100; i=i+4 )
-	        	{
-	        		outData[i] = 0;
-					outData[i+1] = 0;
-					outData[i+2] = 0;
-					outData[i+3] = inData[i+3];
-	        	}
+        			for(var i = 0; i < 100; i=i+4 )
+		        	{
+		        		outData[i] = 0;
+						outData[i+1] = 0;
+						outData[i+2] = 0;
+						outData[i+3] = inData[i+3];
+		        	}
 	        	}
         	}
         },
