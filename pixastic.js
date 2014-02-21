@@ -1389,6 +1389,8 @@ Pixastic.Effects = (function() {
 			{
 				var startPoint = currBlock*(blockSize*4)+ l*width*4*blockSize;
 				if(currBlock % blocksPerLine == 0) console.log("processing line: "+l++ +"startpoint at "+startPoint);
+				if(currBlock % blocksPerLine == (blocksPerLine-1)) console.log("processing line: "+(l-1) +"last startpoint at "+startPoint);
+				
 				var colorR,colorB,colorG;
 				colorR = inData[startPoint];
 				colorB = inData[startPoint+1];
