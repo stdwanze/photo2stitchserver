@@ -1354,7 +1354,7 @@ Pixastic.Effects = (function() {
          test : function (inData,outData,width,height, options, progress)
         {
         	n = width * height * 4;
-        	var lines = heigth;
+        	var lines = height;
         	
         	
         	
