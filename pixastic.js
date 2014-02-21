@@ -1365,7 +1365,7 @@ Pixastic.Effects = (function() {
 				for(var lines = 0 ; lines < blockSize ; lines++)
 				{
 				
-					var localStart = currStart +(lines*width);
+					var localStart = currStart +(lines*width*4);
 					visitedStartPoints[""+localStart] = true;
 					var colorR,colorB,colorG;
 					colorR = inData[localStart];
