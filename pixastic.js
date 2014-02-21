@@ -1384,11 +1384,11 @@ Pixastic.Effects = (function() {
 			var blockCount = blocksPerLine*blocksPerRow;
 			console.log("blockcount: "+blockCount + "perLine "+blocksPerLine+ " perRow "+blocksPerRow);
 			
-			var line = 0;
+			var l = 0;
 			for(var currBlock = 0 ;currBlock < blockCount ; currBlock = currBlock+1)
 			{
-				var startPoint = currBlock*(blockSize*4);//(currBlock % blocksPerLine + (Math.floor(currBlock / blocksPerLine))*blocksPerLine )* (blockSize*4);
-				if(currBlock % blocksPerLine == 0) console.log("processing line: "+line++);
+				var startPoint = currBlock*(blockSize*4)+ l*width*4;
+				if(currBlock % blocksPerLine == 0) console.log("processing line: "+l++);
 				var colorR,colorB,colorG;
 				colorR = inData[startPoint];
 				colorB = inData[startPoint+1];
