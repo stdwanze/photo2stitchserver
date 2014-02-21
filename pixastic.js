@@ -1356,7 +1356,7 @@ Pixastic.Effects = (function() {
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
 			n = width * height * 4;
 		
-			for(var currStart = 0; currStart < n -blockSize; currStart+= blockSize)
+			for(var currStart = 0; currStart < n -blockSize*4; currStart+= blockSize*4)
 			{
 				for(var lines = 0 ; lines < blockSize ; lines++)
 				{
