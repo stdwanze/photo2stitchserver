@@ -34,7 +34,7 @@ router.registerHandler(function (req,response){
 	function deliverImageHTML(response,base64buffer)
 	{
 		response.writeHead(200, {"Content-Type": "text/html"});
-		response.wirte("<!DOCTYPE HTML><html><head></head><body><img src='data:image/gif;base64,"+base64buffer+"'></body>");
+		response.write("<!DOCTYPE HTML><html><head></head><body><img src='data:image/gif;base64,"+base64buffer+"'></body>");
 		response.end();
 	}
     
@@ -60,7 +60,7 @@ router.registerHandler(function (req,response){
 			resultJSON.bufferSize = base64String.length;
 			
 			fs.unlink(req.nodekitfiles.file.path, function (){ console.log("file detached!"+req.nodekitfiles.file.path);});
-			deliverImageHTML(response,original_data);	
+			deliverImageHTML(response,base64String);	
 		});
 		
 		
