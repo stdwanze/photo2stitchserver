@@ -1377,19 +1377,18 @@ Pixastic.Effects = (function() {
         {
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
 			n = width * height * 4;
-			console.log("buffer length = "+inData.length);
-			console.log("width * height * 4 = "+n + " ("+width+"/"+height+")");
-			var visitedStartPoints = {};
-			for(var currStart = 0; currStart < n -blockSize*4; currStart+= blockSize*4)
+			
+			var blocksPerLine = width/(blockSize*4);
+			var blocksPerRow = height/(blockSize*4);
+			
+			var blockCount = blocksPerLine*blocksPerRow;
+			
+			for(var currBlock = 0 ;currBlock < blockCount ; currBlock = currBlock+1)
 			{
-				if(visitedStartPoints[""+currStart]) continue;
-				
-				for(var lines = 0 ; lines < blockSize ; lines++)
-				{
-				
-					var localStart = currStart +(lines*width*4);
-					visitedStartPoints[""+localStart] = true;
-					var colorR,colorB,colorG;
+				var startPoint = currBlock % blocksPerLine * (blockSize*4);
+			}
+			
+			var colorR,colorB,colorG;
 					colorR = inData[localStart];
 					colorB = inData[localStart+1];
 					colorG = inData[localStart+2];
@@ -1402,18 +1401,8 @@ Pixastic.Effects = (function() {
 						outData[cursor+localStart+2] = colorG;
 						outData[cursor+localStart+3] = inData[cursor+localStart+3];
 					}
-					outData[localStart] = 255;
-					outData[localStart+1] = 0;
-					outData[localStart+2] = 0;
-					outData[localStart+3] = inData[localStart+3];
-				}
-				if (progress) {
-                    prog = (currStart/n*100 >> 0) / 100;
-                    if (prog > lastProg) {
-                        lastProg = progress(prog);
-                    }
-                }
-			}
+			
+			
 				
         },
         posterize : function(inData, outData, width, height, options, progress) {
