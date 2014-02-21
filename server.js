@@ -48,7 +48,7 @@ router.registerHandler(function (req,response){
 		fs.readFile(req.nodekitfiles.file.path, function(err, original_data){
 			
 			
-			var canvas = new Canvas(1024,1024);
+			var canvas = new Canvas(1020,1020);
 			var ctxt = canvas.getContext("2d");
 			var image = new Canvas.Image;
 			
