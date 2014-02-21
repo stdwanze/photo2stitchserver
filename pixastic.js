@@ -1354,17 +1354,17 @@ Pixastic.Effects = (function() {
          test : function (inData,outData,width,height, options, progress)
         {
         	n = width * height * 4;
-        	var parts = n/400;
+        	var lines = heigth;
         	
         	
         	
-        	for(var p = 0; p < parts; p= p+1)
+        	for(var p = 0; p < lines; p= p+1)
         	{
         		if(p % 2 > 0)
         		{
-        			for(var i = 0; i < 400; i=i+4 )
+        			for(var i = 0; i < width; i=i+4 )
 		        	{
-		        		var cursor = p*400+i;
+		        		var cursor = p*width+i;
 		        		outData[cursor] = 0;
 						outData[cursor+1] = 0;
 						outData[cursor+2] = 0;
