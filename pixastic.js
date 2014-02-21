@@ -1362,9 +1362,9 @@ Pixastic.Effects = (function() {
         	{
         		if(p % 2 > 0)
         		{
-        			for(var i = 0; i < width; i=i+4 )
+        			for(var i = 0; i < width*4; i=i+4 )
 		        	{
-		        		var cursor = p*width+i;
+		        		var cursor = (p*width*4)+i;
 		        		outData[cursor] = 0;
 						outData[cursor+1] = 0;
 						outData[cursor+2] = 0;
