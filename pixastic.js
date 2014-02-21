@@ -1386,23 +1386,27 @@ Pixastic.Effects = (function() {
 			for(var currBlock = 0 ;currBlock < blockCount ; currBlock = currBlock+1)
 			{
 				var startPoint = currBlock % blocksPerLine * (blockSize*4);
-			}
-			
-			var colorR,colorB,colorG;
-					colorR = inData[localStart];
-					colorB = inData[localStart+1];
-					colorG = inData[localStart+2];
-					
-					
-					for(var cursor = 0 ; cursor < blockSize*4; cursor+=4)
+				
+				var colorR,colorB,colorG;
+				colorR = inData[startPoint];
+				colorB = inData[startPoint+1];
+				colorG = inData[startPoint+2];
+				alpha = inData[startPoint+3];
+				
+				for( var line = 0; line < blockSize ; line = line +1)
+				{
+					var lineStart = startPoint+(line*width*4);
+					for(var pixel = 0; pixel < blockSize; pixel = pixel +1)
 					{
-						outData[cursor+localStart] = colorR;
-						outData[cursor+localStart+1] = colorB;
-						outData[cursor+localStart+2] = colorG;
-						outData[cursor+localStart+3] = inData[cursor+localStart+3];
+						var cursor = lineStart+pixel*4;
+						outData[cursor] = colorR;
+						outData[cursor+1] = colorB;
+						outData[cursor+2] =colorG;
+						outData[cursor+3] = apha;
 					}
-			
-			
+				}
+				
+			}
 				
         },
         posterize : function(inData, outData, width, height, options, progress) {
