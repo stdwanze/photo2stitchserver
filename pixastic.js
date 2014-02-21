@@ -35,9 +35,9 @@
                     worker = new window.Worker(workerControlPath + "pixastic.worker.control.js");
                 } catch(e) {
                     if (location.protocol == "file:") {
-                        Pixastic.log("Could not create real worker, running from file://")
+                        Pixastic.log("Could not create real worker, running from file://");
                     } else {
-                        Pixastic.log("Could not create real worker.")
+                        Pixastic.log("Could not create real worker.");
                     }
                 }
             }
@@ -55,7 +55,7 @@
                             options : options
                         });
                         return P;
-                    }
+                    };
 
                     P.done = function(callback, progress) {
                         var inData, outData;
@@ -100,12 +100,12 @@
                                 case "error" :
                                     break;
                             }
-                        }
+                        };
                         
                         if (progress) {
                             progress(0);
                         }
-                    }
+                    };
                 })(e);
             }
         }
@@ -143,7 +143,7 @@
                             }
                         });
                         return p;
-                    }
+                    };
                 }
 
                 Pixastic.Effects[e](inData.data, outData.data, width, height, options, progressCallback);
@@ -172,7 +172,7 @@
         
         this.onmessage = function() {};
 
-    }
+    };
 
 
     
@@ -275,7 +275,7 @@
         hsv2rgb : function(h, s, v) {
         }
 
-    }
+    };
 
     return Pixastic;
 

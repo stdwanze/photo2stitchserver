@@ -4,6 +4,7 @@ var nodekit = require("./nodekit");
 var fs = require("fs");
 var Canvas = require("canvas");
 var P = require("pixastic");
+
 var server = new nodekit.server(8080);
 var router = new nodekit.router();
 router.registerHandler(function (req,response){
