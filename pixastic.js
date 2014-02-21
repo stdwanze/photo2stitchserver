@@ -1372,7 +1372,7 @@ Pixastic.Effects = (function() {
 						outData[cursor+localStart] = colorR;
 						outData[cursor+localStart+1] = colorB;
 						outData[cursor+localStart+2] = colorG;
-					
+						outData[cursor+localStart+3] = inData[cursor+localStart+3];
 					}
 				}
 				if (progress) {
