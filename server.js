@@ -26,7 +26,7 @@ router.registerHandler(function(req, response) {
 	function scaleDown(canvas, ctxt, image) {
 		var dimensions = getScaleDimesions(canvas, image);
 		ctxt.drawImage(image, 0, 0, dimensions.width, dimensions.height);
-
+	
 	}
 
 	function deliverImageHTML(response, base64buffer) {
@@ -37,16 +37,16 @@ router.registerHandler(function(req, response) {
 		response.end();
 	}
 
-	function applyLines(canvas,ctxt,image,blockSize) {
+	function applyLines(canvas,ctxt,blockSize) {
 
 		var row = 0, column = 0;
 
-		while (row < canvas.height && row < (image.height + 2 * blockSize)) {
+		while (row < canvas.height ) {
 			ctxt.strokeStyle = '#848484';
 			ctxt.lineWidth = 1;
 			ctxt.beginPath();
 			ctxt.moveTo(0, row);
-			ctxt.lineTo(image.width + 4 * blockSize, row);
+			ctxt.lineTo(canvas.width + 4 * blockSize, row);
 
 			ctxt.closePath();
 			ctxt.stroke();
@@ -54,7 +54,7 @@ router.registerHandler(function(req, response) {
 			row += blockSize;
 		}
 
-		while (column < canvas.width && column <= (image.width + 4 * blockSize)) {
+		while (column < canvas.width ) {
 			ctxt.strokeStyle = '#848484';
 			ctxt.lineWidth = 1;
 			ctxt.beginPath();
@@ -87,7 +87,7 @@ router.registerHandler(function(req, response) {
 			pixastic["mosaic"]({ blockSize : 10 }).done(function() {
 			pixastic["posterize"]({	levels : 5 }).done(function() {
 
-						applyLines(canvas,ctxt,image,10);
+						applyLines(canvas,ctxt,10);
 						original_data = canvas.toBuffer();
 						var base64String = original_data.toString("base64");
 						resultJSON.nkFiles = req.nodekitfiles;
