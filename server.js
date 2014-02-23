@@ -51,7 +51,7 @@ router.registerHandler(function(req, response) {
 			ctxt.closePath();
 			ctxt.stroke();
 
-			row += blockSize;
+			row += blockSize+1;
 		}
 
 		while (column < canvas.width ) {
