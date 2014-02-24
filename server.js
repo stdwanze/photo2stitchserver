@@ -78,9 +78,11 @@ router.registerHandler(function(req, response) {
 			
 			if(colorString in map)
 			{
+				
 				return map[colorString];
 			}
 			else{
+				console.log("add "+colorString+" to color map");
 				map[colorString] = current++;
 				return map[colorString];
 			}
