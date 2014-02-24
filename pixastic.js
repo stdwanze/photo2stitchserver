@@ -1378,7 +1378,7 @@ Pixastic.Effects = (function() {
         	function blockInfo (blockSize,perLine,currBlock,currStream,color)
         	{
         		
-        		var piy = Math.floor(currBlock / perLine)*blockSize;
+        		var piy = Math.floor(currBlock / perLine)*blockSize+1;
         		var pix = currBlock % perLine*blockSize;
         		var c = color;
         		var streamPos = currStream;
