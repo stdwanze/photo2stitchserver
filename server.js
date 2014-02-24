@@ -95,7 +95,9 @@ router.registerHandler(function(req, response) {
 		
 		for(var i = 0; i < blocks.length; i++)
 		{
-			var letter = numberSign[getNumberForColor(blocks[i].Color)];
+			var binarydata = ctxt.getImageData(blocks[i].PosX,blocks[i].PosY,1,1);
+			var color = "rgb("+binarydata[0]+","+binarydata[1]+","+binarydata[3]+")";
+			var letter = numberSign[getNumberForColor(color)];
 			ctx.save();
 			ctx.fillStyle = "#FFFFFF";
 			ctx.font = (blockSize-2)+"px curier new";

@@ -1375,15 +1375,17 @@ Pixastic.Effects = (function() {
         },
         mosaic : function (inData,outData,width,height, options, progress)
         {
-        	function blockInfo (blockSize,perLine,curr,color)
+        	function blockInfo (blockSize,perLine,currBlock,currStream,color)
         	{
         		
-        		var piy = Math.floor(curr / perLine)*blockSize;
-        		var pix = curr % perLine*blockSize;
+        		var piy = Math.floor(currBlock / perLine)*blockSize;
+        		var pix = currBlock % perLine*blockSize;
         		var c = color;
+        		var streamPos = currStream;
         		return {
         			PosX : pix ,
         			PosY : piy,
+        			StreamPos : streamPos,
         			Color : c	
         		};
        		}
@@ -1412,7 +1414,7 @@ Pixastic.Effects = (function() {
 				colorG = inData[startPoint+2];
 				alpha = inData[startPoint+3];
 				
-				options.blocks.push(blockInfo(11,blocksPerLine,currBlock,"rgb("+colorR+","+colorG+","+colorB+")"));
+				options.blocks.push(blockInfo(11,blocksPerLine,currBlock,startPoint,"rgb("+colorR+","+colorG+","+colorB+")"));
 				
 				if(currBlock == 0)
 				{
