@@ -1421,11 +1421,11 @@ Pixastic.Effects = (function() {
 				else if(currBlock % blocksPerLine == 0) {
 					
 					l++;
-					console.log("processing line: "+l +"startpoint at "+startPoint);
+				//	console.log("processing line: "+l +"startpoint at "+startPoint);
 				}
 				else if(currBlock % blocksPerLine == (blocksPerLine-1)) {
 					
-					console.log("processing line: "+(l-1) +"last startpoint at "+startPoint);
+				//	console.log("processing line: "+(l-1) +"last startpoint at "+startPoint);
 				}
 				
 				

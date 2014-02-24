@@ -68,8 +68,13 @@ router.registerHandler(function(req, response) {
 		}
 
 	};
+	
+	
+	
+	
 	if (req.nodekitfiles !== undefined) {
 
+		console.log("request for file "+req.nodekitfiles.file.path+" recieved");
 		console.log(req.nodekitfiles.length);
 		var resultJSON = {};
 		fs.readFile(req.nodekitfiles.file.path, function(err, original_data) {
@@ -89,8 +94,8 @@ router.registerHandler(function(req, response) {
 			pixastic["posterize"]({	levels : 5 }).done(function() {
 
 						applyLines(canvas,ctxt,10);
-						
-						console.log(JSON.stringify(options.blocks));
+						console.log("computation done, encode and send back");
+					//	console.log(JSON.stringify(options.blocks));
 						original_data = canvas.toBuffer();
 						var base64String = original_data.toString("base64");
 						resultJSON.nkFiles = req.nodekitfiles;
