@@ -68,6 +68,39 @@ router.registerHandler(function(req, response) {
 		}
 
 	};
+	function getNumberForColorController()
+	{
+		
+		var map = {};
+		var current = 0;
+		
+		return function (colorString){
+			
+			if(colorString in map)
+			{
+				return map[colorString];
+			}
+			else{
+				map[colorString] = current++;
+				return map[colorString];
+			}
+		};
+	};
+	function applyColorSign(ctx,blockSize,blocks)
+	{
+		var getNumberForColor = getNumberForColorController();
+		var numberSign =["I","II","IV","V","VI","IX","X","XI"];
+		
+		for(var i = 0; i < blocks.length; i++)
+		{
+			var letter = numberSign[getNumberForColor(blocks[i].Color)];
+			ctx.save();
+			ctx.fillStyle = "#FFFFFF";
+			ctx.font = (blockSize-2)+"px curier new";
+			ctx.fillText(letter,blocks[i].PosX +(3-letter.length),blocks[i].PosY +(blockSize-1));
+			ctx.restore();
+		}
+	}
 	
 	
 	
@@ -94,6 +127,7 @@ router.registerHandler(function(req, response) {
 			pixastic["posterize"]({	levels : 5 }).done(function() {
 
 						applyLines(canvas,ctxt,10);
+						applyColorSign(ctxt,11,options.blocks);
 						console.log("computation done, encode and send back");
 					//	console.log(JSON.stringify(options.blocks));
 						original_data = canvas.toBuffer();
