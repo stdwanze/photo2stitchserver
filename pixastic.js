@@ -1380,12 +1380,12 @@ Pixastic.Effects = (function() {
         		
         		var piy = Math.floor(curr / perLine)*blockSize;
         		var pix = curr % perLine*blockSize;
-        		var c = color;
-        		return (function () {
-        			var PosX = pix;
-        			var PosY = piy;
-        			var Color = c;	
-        		}());
+        		var col = color;
+        		return (function (y,x,c) {
+        			PosX : x;
+        			PosY : y;
+        			Color : c;	
+        		}(piy,pix,col));
        		}
        		options.blocks = [];
        		
