@@ -129,7 +129,7 @@ router.registerHandler(function(req, response) {
 			//image.src = original_data = canvas.toBuffer();
 			pixastic["desaturate"]().done(function() {
 			pixastic["mosaic"](options).done(function() {
-			pixastic["posterize"]({	levels : 3 }).done(function() {
+			pixastic["posterize"]({	levels : 4 }).done(function() {
 
 						applyLines(canvas,ctxt,10);
 						applyColorSign(ctxt,11,options.blocks);
