@@ -127,8 +127,8 @@ router.registerHandler(function(req, response) {
 			scaleDown(canvas, ctxt, image);
 			var options = { blockSize : 10};
 			//image.src = original_data = canvas.toBuffer();
-			pixastic["mosaic"](options).done(function() {
 			pixastic["desaturate"]().done(function() {
+			pixastic["mosaic"](options).done(function() {
 			pixastic["posterize"]({	levels : 4 }).done(function() {
 
 						applyLines(canvas,ctxt,10);

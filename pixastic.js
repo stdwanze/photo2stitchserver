@@ -1463,9 +1463,9 @@ Pixastic.Effects = (function() {
 
             for (i=0;i<n;i+=4) {
             
-                outData[i] = numValues * (Math.floor(inData[i] / numAreas)>>0);
-                outData[i+1] = numValues * (Math.floor(inData[i+1] / numAreas)>>0); 
-                outData[i+2] = numValues * (Math.floor(inData[i+2] / numAreas)>>0); 
+                outData[i] = numValues * (Math.floor(inData[i] / numAreas));
+                outData[i+1] = numValues * (Math.floor(inData[i+1] / numAreas)); 
+                outData[i+2] = numValues * (Math.floor(inData[i+2] / numAreas)); 
             
                 outData[i+3] = inData[i+3];
 
