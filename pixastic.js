@@ -1375,11 +1375,27 @@ Pixastic.Effects = (function() {
         },
         mosaic : function (inData,outData,width,height, options, progress)
         {
+        	function blockInfo (blockSize,perLine,curr,color)
+        	{
+        		
+        		var piy = Math.floor(curr / perLine)*blockSize;
+        		var pix = curr % perLine*blockSize;
+        		var c = color;
+        		return (function () {
+        			var PosX = pix;
+        			var PosY = piy;
+        			var Color = c;	
+        		}());
+       		}
+       		options.blocks = [];
+       		
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
 			n = width * height * 4;
 			
 			var blocksPerLine = Math.round(width/(blockSize));
 			var blocksPerRow = Math.round(height/(blockSize));
+			var _blockInfo = blockInfo.bind(this,11,blocksPerLine);
+       		
 			
 			var blockCount = blocksPerLine*blocksPerRow;
 			console.log("blockcount: "+blockCount + "perLine "+blocksPerLine+ " perRow "+blocksPerRow);
@@ -1395,6 +1411,7 @@ Pixastic.Effects = (function() {
 				colorG = inData[startPoint+2];
 				alpha = inData[startPoint+3];
 				
+				options.blocks.push(_blockInfo(currBlock,blocksPerLine,"rgb("+colorR+","+colorG+","+colorB+")"));
 				
 				if(currBlock == 0)
 				{
@@ -1409,6 +1426,7 @@ Pixastic.Effects = (function() {
 					
 					console.log("processing line: "+(l-1) +"last startpoint at "+startPoint);
 				}
+				
 				
 				for( var line = 0; line <= blockSize ; line = line +1)
 				{

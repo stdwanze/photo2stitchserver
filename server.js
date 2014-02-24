@@ -82,12 +82,15 @@ router.registerHandler(function(req, response) {
 
 			image.src = original_data;
 			scaleDown(canvas, ctxt, image);
+			var options = { blockSute : 10};
 			//image.src = original_data = canvas.toBuffer();
 			pixastic["desaturate"]().done(function() {
-			pixastic["mosaic"]({ blockSize : 10 }).done(function() {
+			pixastic["mosaic"](options).done(function() {
 			pixastic["posterize"]({	levels : 5 }).done(function() {
 
 						applyLines(canvas,ctxt,10);
+						
+						console.log(JSON.stringify(options.blocks));
 						original_data = canvas.toBuffer();
 						var base64String = original_data.toString("base64");
 						resultJSON.nkFiles = req.nodekitfiles;
