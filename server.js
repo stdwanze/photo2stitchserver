@@ -82,7 +82,7 @@ router.registerHandler(function(req, response) {
 
 			image.src = original_data;
 			scaleDown(canvas, ctxt, image);
-			var options = { blockSute : 10};
+			var options = { blockSize : 10};
 			//image.src = original_data = canvas.toBuffer();
 			pixastic["desaturate"]().done(function() {
 			pixastic["mosaic"](options).done(function() {
