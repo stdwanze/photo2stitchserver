@@ -91,7 +91,7 @@ router.registerHandler(function(req, response) {
 	function applyColorSign(ctx,blockSize,blocks)
 	{
 		var getNumberForColor = getNumberForColorController();
-		var numberSign =["I","II","IV","V","VI","IX","X","XI"];
+		var numberSign =["I","II","IV","V","VI","IX","X","XI","L","M","A","B","C","D","E"];
 		
 		for(var i = 0; i < blocks.length; i++)
 		{
