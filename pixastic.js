@@ -1414,7 +1414,7 @@ Pixastic.Effects = (function() {
 				colorG = inData[startPoint+2];
 				alpha = inData[startPoint+3];
 				
-				options.blocks.push(blockInfo(11,blocksPerLine,currBlock,startPoint,"rgb("+colorR+","+colorG+","+colorB+")"));
+				options.blocks.push(blockInfo(10,blocksPerLine,currBlock,startPoint,"rgb("+colorR+","+colorG+","+colorB+")"));
 				
 				if(currBlock == 0)
 				{

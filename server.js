@@ -96,6 +96,7 @@ router.registerHandler(function(req, response) {
 		for(var i = 0; i < blocks.length; i++)
 		{
 			var binarydata = ctx.getImageData(blocks[i].PosX,blocks[i].PosY,1,1);
+			console.log(JSON.stringify(binarydata));
 			var color = "rgb("+binarydata[0]+","+binarydata[1]+","+binarydata[3]+")";
 			var letter = numberSign[getNumberForColor(color)];
 			ctx.save();
