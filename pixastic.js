@@ -1380,11 +1380,11 @@ Pixastic.Effects = (function() {
         		
         		var piy = Math.floor(curr / perLine)*blockSize;
         		var pix = curr % perLine*blockSize;
-        		var col = color;
+        		var c = color;
         		return {
         			PosX : pix ,
         			PosY : piy,
-        			Color : col	
+        			Color : c	
         		};
        		}
        		options.blocks = [];
@@ -1411,7 +1411,7 @@ Pixastic.Effects = (function() {
 				colorG = inData[startPoint+2];
 				alpha = inData[startPoint+3];
 				
-				options.blocks.push(blockInfo(11,blocksPerLine,currBlock,blocksPerLine,"rgb("+colorR+","+colorG+","+colorB+")"));
+				options.blocks.push(blockInfo(11,blocksPerLine,currBlock,"rgb("+colorR+","+colorG+","+colorB+")"));
 				
 				if(currBlock == 0)
 				{
