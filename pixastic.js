@@ -1387,6 +1387,7 @@ Pixastic.Effects = (function() {
         			Color : c	
         		};
        		}
+       		if(options.blocks) return ;
        		options.blocks = [];
        		
         	var blockSize = Math.max(1,parseInt(options.blockSize,10));
