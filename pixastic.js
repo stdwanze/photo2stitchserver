@@ -1394,7 +1394,7 @@ Pixastic.Effects = (function() {
 			
 			var blocksPerLine = Math.round(width/(blockSize));
 			var blocksPerRow = Math.round(height/(blockSize));
-			var _blockInfo = blockInfo.bind(this,11,blocksPerLine);
+			
        		
 			
 			var blockCount = blocksPerLine*blocksPerRow;
@@ -1411,7 +1411,7 @@ Pixastic.Effects = (function() {
 				colorG = inData[startPoint+2];
 				alpha = inData[startPoint+3];
 				
-				options.blocks.push(_blockInfo(currBlock,blocksPerLine,"rgb("+colorR+","+colorG+","+colorB+")"));
+				options.blocks.push(blockInfo(11,blocksPerLine,currBlock,blocksPerLine,"rgb("+colorR+","+colorG+","+colorB+")"));
 				
 				if(currBlock == 0)
 				{
