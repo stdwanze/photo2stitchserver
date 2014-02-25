@@ -29,6 +29,7 @@ var fs = require("fs"); ( function(NodeKit) {"use strict";
 
 								var form = new formidable.IncomingForm();
 								form.parse(request, function(err, fields, files) {
+									console.log("fields:raw: "+JSON.stringify(fields));
 									request.nodekitfields = fields;
 									request.nodekitfiles = files;
 									handler.respond(request, response);
