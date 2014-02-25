@@ -1,11 +1,20 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		
+		<meta charset="utf-8">
 	</head>
 	<body>
 		<form action="http://nodetwo.cloudapp.net/photo2stitch"  method="post"  enctype="multipart/form-data">
-				<input id="photopath" type="file" size="50" maxlength="1000000" name="file" /><div>
+			<input id="photopath" type="file" size="50" maxlength="1000000" name="file" />
+			<div>
+				<span>Blockgröße:</span>
+				<input id="blocksize" type="number" size="3" value="10"/>
+				<span>Farbanzahl (Level)</span>
+				<input id="level" type="number" size="3"  value="5" />
+				<span>Mit römischen Zahlen
+					<input type="checkbox" id="checkbox">
+				</span>
+
 				<input type="submit" value="Submit">
 		</form>
 	</body>
