@@ -131,8 +131,8 @@ router.registerHandler(function(req, response) {
 			pixastic["mosaic"](options).done(function() {
 			pixastic["posterize"]({	levels : 4 }).done(function() {
 
-						applyLines(canvas,ctxt,10);
 						applyColorSign(ctxt,11,options.blocks);
+						applyLines(canvas,ctxt,10);
 						console.log("computation done, encode and send back");
 					//	console.log(JSON.stringify(options.blocks));
 						original_data = canvas.toBuffer();
