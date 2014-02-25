@@ -11,7 +11,7 @@ router.registerHandler(function(req, response) {
 
 		var form = { file : req.nodekitfiles.file, fields: req.nodekitfields };
 		console.log(JSON.stringify(form));
-		photo2stitch.Photo2Stitch(req.nodekitfiles,response);
+		photo2stitch.Photo2Stitch(form,response);
 
 	} else {
 		server.serverStaticHtml("/form.htm", response);
