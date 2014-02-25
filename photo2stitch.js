@@ -108,9 +108,18 @@ var photo2Stitch = (function (){
 	{
 		console.log("request for file "+form.file.path+" recieved");
 		var resultJSON = {};
+		
+//		{"blocksize":"10","levels":"5","withsigns":"on"}
+		var blockSize = parseInt(form.fields.blocksize);
+		var levels = parseInt(form.fields.levels);
+		var signs = form.fields.withsigns !== undefined ? true: false;
+		
+		var canvasSize = (1020 % blockSize)+1020;
+		
+				
 		fs.readFile(form.file.path, function(err, original_data) {
 
-			var canvas = new Canvas(1020, 1020);
+			var canvas = new Canvas(canvasSize, canvasSize);
 			var ctxt = canvas.getContext("2d");
 			var image = new Canvas.Image;
 
@@ -118,14 +127,14 @@ var photo2Stitch = (function (){
 
 			image.src = original_data;
 			scaleDown(canvas, ctxt, image);
-			var options = { blockSize : 10};
+			var options = { blockSize : blockSize};
 			//image.src = original_data = canvas.toBuffer();
 			pixastic["desaturate"]().done(function() {
 			pixastic["mosaic"](options).done(function() {
-			pixastic["posterize"]({	levels : 4 }).done(function() {
+			pixastic["posterize"]({	levels : levels-1 }).done(function() {
 
-						applyColorSign(ctxt,11,options.blocks);
-						applyLines(canvas,ctxt,10);
+						if(signs) applyColorSign(ctxt,blockSize+1,options.blocks);
+						applyLines(canvas,ctxt,blockSize);
 						console.log("computation done, encode and send back");
 					//	console.log(JSON.stringify(options.blocks));
 						original_data = canvas.toBuffer();
