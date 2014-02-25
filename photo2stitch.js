@@ -94,7 +94,10 @@ var photo2Stitch = (function (){
 		{
 			var binarydata = ctx.getImageData(blocks[i].PosX,blocks[i].PosY,1,1);
 			var color = "rgb("+binarydata.data[0]+","+binarydata.data[1]+","+binarydata.data[2]+")";
-			var letter = numberSign[getNumberForColor(color)];
+			
+			var numberIndex = getNumberForColor(color);
+			numberIndex = numberIndex < numberSign.length ? numberIndex: 0;
+			var letter = numberSign[ numberIndex ] ;
 			ctx.save();
 			ctx.fillStyle = "#FFFFFF";
 			ctx.font = (blockSize-2)+"px curier new";
