@@ -24,7 +24,7 @@ var photo2Stitch = (function (){
 	function scaleDown(canvas, ctxt, image) {
 		var dimensions = getScaleDimesions(canvas, image);
 		ctxt.drawImage(image, 0, 0, dimensions.width, dimensions.height);
-		return scaledDimensions;
+		return dimensions;
 	}
 
 	function deliverImageHTML(response, base64buffer) {
