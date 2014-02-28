@@ -710,7 +710,11 @@ Pixastic.Effects = (function() {
         },
         
         desaturate : function(inData, outData, width, height, options, progress) {
-            if(options.bypass) return;
+            if(options.bypass)
+            {
+            	outData = inData.slice();
+            	return;
+            } 
             var n = width * height * 4,
                 prog, lastProg = 0,
                 level;
@@ -1416,7 +1420,6 @@ Pixastic.Effects = (function() {
 				alpha = inData[startPoint+3];
 				
 				options.blocks.push(blockInfo(blockSize,blocksPerLine,currBlock,startPoint,"rgb("+colorR+","+colorG+","+colorB+")"));
-				
 				if(currBlock == 0)
 				{
 					console.log("processing first line");
