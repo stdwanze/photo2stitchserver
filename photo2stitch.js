@@ -1,6 +1,7 @@
 var fs = require("fs");
 var Canvas = require("canvas");
 var P = require("./pixastic");
+var colorKit = require("./colorkit");
 
 var photo2Stitch = (function (){
 	
@@ -23,7 +24,7 @@ var photo2Stitch = (function (){
 	function scaleDown(canvas, ctxt, image) {
 		var dimensions = getScaleDimesions(canvas, image);
 		ctxt.drawImage(image, 0, 0, dimensions.width, dimensions.height);
-	
+		return scaledDimensions;
 	}
 
 	function deliverImageHTML(response, base64buffer) {
@@ -105,6 +106,35 @@ var photo2Stitch = (function (){
 			ctx.restore();
 		}
 	}
+	function getDominantColor(ctxt,width,heigth){
+		
+		var binarydata = ctx.getImageData(0,0,width,height);
+		var hues = [];
+		var saturations = [];
+		var brightness = [];
+		for(var i = 0; i < binarydata.length; i+=4)
+		{
+			var hsv = colorKit.ColorKit.rGBtoHSV(binarydata.data[i],binarydata.data[i+1],binarydata.data[i+2]);
+			var hue = Math.round(hsv.h);
+			hues[hue] += 1;
+			saturations[hue] += hsv.s;
+			brightness[hue] += hsv.v;
+		}
+		
+		var hueCount = hues[0];
+		var hue = 0;
+		for(var i = 1; i < hues.length; i++)
+		{
+			if(hues[i] > hueCount)
+			{
+				hueCount = hue[i];
+				hue = i;
+			}
+		}
+		
+		return hsv { h : hue; }
+		
+	}
 	
 	
 	return function(form,response)
@@ -132,7 +162,7 @@ var photo2Stitch = (function (){
 			scaleDown(canvas, ctxt, image);
 			var options = { blockSize : blockSize};
 			//image.src = original_data = canvas.toBuffer();
-			pixastic["desaturate"]().done(function() {
+			pixastic["desaturate"]({ bypass : false }).done(function() {
 			pixastic["mosaic"](options).done(function() {
 			pixastic["posterize"]({	levels : levels-1 }).done(function() {
 

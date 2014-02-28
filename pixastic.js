@@ -710,6 +710,7 @@ Pixastic.Effects = (function() {
         },
         
         desaturate : function(inData, outData, width, height, options, progress) {
+            if(options.bypass) return;
             var n = width * height * 4,
                 prog, lastProg = 0,
                 level;
