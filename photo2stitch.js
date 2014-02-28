@@ -148,7 +148,7 @@ var photo2Stitch = (function (){
 		var blockSize = parseInt(form.fields.blocksize);
 		var levels = parseInt(form.fields.levels);
 		var signs = form.fields.withsigns !== undefined ? true: false;
-		
+		var greyscale = form.fields.greyscale !== undefined ? true: false;
 		var canvasSize = (1020 % blockSize)+1020;
 		
 				
@@ -163,8 +163,9 @@ var photo2Stitch = (function (){
 			image.src = original_data;
 			scaleDown(canvas, ctxt, image);
 			var options = { blockSize : blockSize};
+			
 			//image.src = original_data = canvas.toBuffer();
-			pixastic["desaturate"]({ bypass : false }).done(function() {
+			pixastic["desaturate"]({ bypass : !greyscale }).done(function() {
 			pixastic["mosaic"](options).done(function() {
 			pixastic["posterize"]({	levels : levels-1 }).done(function() {
 
