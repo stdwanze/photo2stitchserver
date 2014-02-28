@@ -122,17 +122,19 @@ var photo2Stitch = (function (){
 		}
 		
 		var hueCount = hues[0];
-		var hue = 0;
+		var hue = 0, sat = 0, vel = 0;
 		for(var i = 1; i < hues.length; i++)
 		{
 			if(hues[i] > hueCount)
 			{
 				hueCount = hue[i];
 				hue = i;
+				sat = saturations[i];
+				vel = brightness[i];
 			}
 		}
 		
-		return hsv { h : hue; }
+		return  { h : hue , s: sat, v : vel};
 		
 	}
 	
