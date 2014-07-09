@@ -19,6 +19,14 @@ router.registerHandler(function(req, response) {
 
 }, "/photo2stitch", ["GET", "POST"]);
 
+router.registerHandler(function(req, response) {
+
+	
+	server.serverStaticHtml("/showFactorioSalesData.htm", response);
+	
+
+}, "/showFactorioSalesData.htm", ["GET"]);
+
 server.registerRouter(router);
 server.run();
 
