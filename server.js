@@ -1,6 +1,6 @@
 var nodekit = require("./nodekit");
 var photo2stitch = require("./photo2stitch");
-var facservice = require("./../factoriodata.js").service;
+var facservice = require("./factoriodata.js").service;
 
 var server = new nodekit.server(8080);
 var router = new nodekit.router();
