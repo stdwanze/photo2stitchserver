@@ -1,5 +1,6 @@
 var nodekit = require("./nodekit");
 var photo2stitch = require("./photo2stitch");
+var facservice = require("./../factoriodata.js").service;
 
 var server = new nodekit.server(8080);
 var router = new nodekit.router();
@@ -26,6 +27,19 @@ router.registerHandler(function(req, response) {
 	
 
 }, "/showFactorioSalesData.htm", ["GET"]);
+
+router.registerHandler(function(req, response) {
+
+	facservice.GetDayly(function (result){
+		response.writeHead(200, {
+			"Content-Type" : "application/json"
+		});
+		response.write(result);
+		response.end();
+	});
+
+}, "/getFactorioSalesData", ["GET"]);
+
 
 server.registerRouter(router);
 server.run();
