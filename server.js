@@ -34,7 +34,7 @@ router.registerHandler(function(req, response) {
 		response.writeHead(200, {
 			"Content-Type" : "application/json"
 		});
-		response.write(result);
+		response.write(JSON.stringify(result));
 		response.end();
 	});
 

@@ -9,6 +9,7 @@ describe('Db tests', function() {
 		console.log(service);
 		service.GetDayly(function (results){
 			
+			console.log(JSON.stringify(results));
 			assert.ok(results.length > 0);
 			done();
 		});
