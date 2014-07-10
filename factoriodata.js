@@ -14,7 +14,7 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 						max : 0,
 						min : 999999999,
 						sold : 0,
-					//	date: null
+						date: 0
 					},
 					
 					keyf: function(doc) {
