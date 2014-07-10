@@ -13,7 +13,8 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 					initial : {
 						max : 0,
 						min : 999999999,
-						sold : 0
+						sold : 0,
+						date: null
 					},
 					
 					keyf: function(doc) {
@@ -24,6 +25,7 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 					reduce : function(curr, result) {
 						result.max = curr.Value > result.max ? curr.Value : result.max;
 						result.min = curr.Value < result.min ? curr.Value : result.min;
+						result.date = curr.Value.DateTime;
 					},
 					finalize : function(result) {
 						result.sold = result.max - result.min;
