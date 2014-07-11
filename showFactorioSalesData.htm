@@ -2,18 +2,51 @@
 <html>
 	<head>
 		<title>Factorio Sales Data</title>
+		
+		 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+    
+   
       google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
+      google.setOnLoadCallback(loadAndDraw);
+    
+    
+     function buildTable (rawDataArray)
+     {
+     	var dataTable = [ ["Date","Sold","Sold that day"]];
+     	
+     	for(var i = 0; i < rawDataTable.lenth; i++)
+     	{
+     		var rawEntry = rawDataTable[i];
+     		var parsedDate = Date.parse(rawEntry.date);
+     		var formated =  parsedDate.getMonth() +"/" +parsedDate.getDate()+"/"+date.getFullYear();
+     		var entry = [ formated ,  rawEntry.max, rawEntry.sold];
+     		dataTable.push(entry);
+     	}
+     }
+    
+     function loadAndDraw(){
+      $.ajax( {
+      	  url: 'http://nodetwo.cloudapp.net/getFactorioSalesData', 
+      	  success: function (data)
+      	  {
+      	  		var graphdata = buildTable(data);
+      	  		drawChart(graphData);  	
+      	  },
+      	  error: function (err,text)
+      	  {
+      	  	$("#console").append(text);
+      	  }
+      });
+     }
+    
+    
+      
+    
+    
+      function drawChart(input) {
+        var data = google.visualization.arrayToDataTable(input);
 
         var options = {
           title: 'Company Performance',
@@ -27,5 +60,6 @@
   </head>
   <body>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="console"></div>
   </body>
 </html>
