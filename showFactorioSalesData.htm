@@ -38,8 +38,8 @@
       	  success: function (data)
       	  {
       	  		var graphdata = buildTable(data);
-      	  		drawChart(graphdata.overall,'chart_div');
-      	  		drawChart(graphdata.dayly,'chart_div_perDay');  	
+      	  		drawChart("Dayly Factorio Sales",graphdata.overall,'chart_div');
+      	  		drawChart("Overall Factorio Sales",graphdata.dayly,'chart_div_perDay');  	
       	  },
       	  error: function (err,text)
       	  {
@@ -52,11 +52,11 @@
       
     
     
-      function drawChart(input,target) {
+      function drawChart(input,target,title) {
         var data = google.visualization.arrayToDataTable(input);
 
         var options = {
-          title: 'Company Performance',
+          title: title , //'Company Performance',
           hAxis: {title: 'Sales', titleTextStyle: {color: 'red'}}
         };
 
