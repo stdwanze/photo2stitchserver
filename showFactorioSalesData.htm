@@ -12,7 +12,7 @@
       google.setOnLoadCallback(loadAndDraw);
     
     
-     function buildTable (rawDataArray)
+     function buildTable (rawDataTable)
      {
      	var dataTable = [ ["Date","Sold","Sold that day"]];
      	
@@ -24,6 +24,7 @@
      		var entry = [ formated ,  rawEntry.max, rawEntry.sold];
      		dataTable.push(entry);
      	}
+     	return dataTable;
      }
     
      function loadAndDraw(){
