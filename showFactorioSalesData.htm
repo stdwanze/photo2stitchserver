@@ -14,17 +14,22 @@
     
      function buildTable (rawDataTable)
      {
-     	var dataTable = [ ["Date","Sold","Sold that day"]];
+     	var composite = { overall: "", dayly: ""};
+     	composite.dayly = [ ["Date","Sold that day"]];
+     	composite.overall = [ ["Date","Sold"]];
      	
      	for(var i = 0; i < rawDataTable.length; i++)
      	{
      		var rawEntry = rawDataTable[i];
      		var parsedDate = new Date(Date.parse(rawEntry.date));
-     		var formated =  parsedDate.getMonth() +"/" +parsedDate.getDate()+"/"+parsedDate.getFullYear();
-     		var entry = [ formated ,  parseInt(rawEntry.max), parseInt(rawEntry.sold)];
-     		dataTable.push(entry);
+     		var formated =  parsedDate.toUTCString();
+     		var entryDayly= [ formated , parseInt(rawEntry.sold)];
+     		var entryOverall = [ formated ,  parseInt(rawEntry.max)];
+     		
+     		composite.dayly.push(entryDayly);
+     		composite.overall.push(entryOverall);
      	}
-     	return dataTable;
+     	return composite;
      }
     
      function loadAndDraw(){
@@ -33,7 +38,8 @@
       	  success: function (data)
       	  {
       	  		var graphdata = buildTable(data);
-      	  		drawChart(graphdata);  	
+      	  		drawChart(graphdata.overall,'chart_div');
+      	  		drawChart(graphdata.dayly,'chart_div_perDay');  	
       	  },
       	  error: function (err,text)
       	  {
@@ -46,21 +52,22 @@
       
     
     
-      function drawChart(input) {
+      function drawChart(input,target) {
         var data = google.visualization.arrayToDataTable(input);
 
         var options = {
           title: 'Company Performance',
-          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+          hAxis: {title: 'Sales', titleTextStyle: {color: 'red'}}
         };
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.ColumnChart(document.getElementById(target));
         chart.draw(data, options);
       }
     </script>
   </head>
   <body>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div_perDay" style="width: 900px; height: 500px;"></div>
     <div id="console"></div>
   </body>
 </html>
