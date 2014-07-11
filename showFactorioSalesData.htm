@@ -20,7 +20,7 @@
      	{
      		var rawEntry = rawDataTable[i];
      		var parsedDate = new Date(Date.parse(rawEntry.date));
-     		var formated =  parsedDate.getMonth() +"/" +parsedDate.getDate()+"/"+date.getFullYear();
+     		var formated =  parsedDate.getMonth() +"/" +parsedDate.getDate()+"/"+parsedDate.getFullYear();
      		var entry = [ formated ,  parseInt(rawEntry.max), parseInt(rawEntry.sold)];
      		dataTable.push(entry);
      	}
