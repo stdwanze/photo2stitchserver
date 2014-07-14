@@ -14,7 +14,11 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 						max : 0,
 						min : 999999999,
 						sold : 0,
-						date: 0
+						date: 0,
+						avg : 0,
+						hourlymax : 0,
+						hourlymin : 999999999,
+						all : []
 					},
 					
 					keyf: function(doc) {
@@ -26,9 +30,21 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 						result.max = curr.Value > result.max ? curr.Value : result.max;
 						result.min = curr.Value < result.min ? curr.Value : result.min;
 						result.date = curr.DateTime;
+						result.all.push(curr.Value);
 					},
 					finalize : function(result) {
 						result.sold = result.max - result.min;
+						result.avg = result.sold / result.all.length;
+						result.all.sort();
+						var last = result.all[0];
+						
+						for(var i = 0; i < result.all.length; i++)
+						{
+							var curr = result.all[i] - last;
+							result.hourlymax = curr > result.hourlymax ? curr : result.hourlymax;
+							result.hourlymin = curr < result.hourlymin ? curr : result.hourlymin;
+						}
+						delete result.all ;
 					}
 				};
 
