@@ -42,7 +42,8 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 						{
 							var curr = result.all[i] - last;
 							result.hourlymax = curr > result.hourlymax ? curr : result.hourlymax;
-							result.hourlymin = curr < result.hourlymin ? curr : result.hourlymin;
+							result.hourlymin = curr < result.hourlymin && curr != 0 ? curr : result.hourlymin;
+							last = result.all[i];
 						}
 						delete result.all ;
 					}
