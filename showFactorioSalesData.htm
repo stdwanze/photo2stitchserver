@@ -6,8 +6,8 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript">
-			var fake = false;
-			var fakeData = JSON.parse("[{\"_date\":\"8_6_2014\",\"max\":35783,\"min\":35754,\"sold\":29,\"date\":\"2014-07-08T23:00:02.635Z\"},{\"_date\":\"9_6_2014\",\"max\":35874,\"min\":35785,\"sold\":89,\"date\":\"2014-07-09T23:00:03.158Z\"},{\"_date\":\"10_6_2014\",\"max\":35965,\"min\":35878,\"sold\":87,\"date\":\"2014-07-10T23:00:03.631Z\"},{\"_date\":\"11_6_2014\",\"max\":36055,\"min\":35969,\"sold\":86,\"date\":\"2014-07-11T23:00:03.302Z\"},{\"_date\":\"12_6_2014\",\"max\":36142,\"min\":36056,\"sold\":86,\"date\":\"2014-07-12T23:00:03.705Z\"},{\"_date\":\"13_6_2014\",\"max\":36262,\"min\":36143,\"sold\":119,\"date\":\"2014-07-13T23:00:03.158Z\"},{\"_date\":\"14_6_2014\",\"max\":36291,\"min\":36264,\"sold\":27,\"date\":\"2014-07-14T12:00:02.907Z\"}]");
+			var fake = true;
+			var fakeData = JSON.parse("[{\"_date\":\"8_6_2014\",\"max\":35783,\"min\":35754,\"sold\":29,\"date\":\"2014-07-08T23:00:02.635Z\",\"avg\":3.2222222222222223,\"hourlymax\":9,\"hourlymin\":1},{\"_date\":\"9_6_2014\",\"max\":35874,\"min\":35785,\"sold\":89,\"date\":\"2014-07-09T23:00:03.158Z\",\"avg\":3.7083333333333335,\"hourlymax\":11,\"hourlymin\":1},{\"_date\":\"10_6_2014\",\"max\":35965,\"min\":35878,\"sold\":87,\"date\":\"2014-07-10T23:00:03.631Z\",\"avg\":3.625,\"hourlymax\":11,\"hourlymin\":1},{\"_date\":\"11_6_2014\",\"max\":36055,\"min\":35969,\"sold\":86,\"date\":\"2014-07-11T23:00:03.302Z\",\"avg\":3.5833333333333335,\"hourlymax\":8,\"hourlymin\":1},{\"_date\":\"12_6_2014\",\"max\":36142,\"min\":36056,\"sold\":86,\"date\":\"2014-07-12T23:00:03.705Z\",\"avg\":3.5833333333333335,\"hourlymax\":12,\"hourlymin\":1},{\"_date\":\"13_6_2014\",\"max\":36262,\"min\":36143,\"sold\":119,\"date\":\"2014-07-13T23:00:03.158Z\",\"avg\":4.958333333333333,\"hourlymax\":10,\"hourlymin\":2},{\"_date\":\"14_6_2014\",\"max\":36293,\"min\":36264,\"sold\":29,\"date\":\"2014-07-14T13:00:04.101Z\",\"avg\":2.0714285714285716,\"hourlymax\":4,\"hourlymin\":1}]");
 			if (fake) {
 				$.ajax = function(config) {
 					config.success(fakeData);
@@ -24,14 +24,14 @@
 					overall : "",
 					dayly : ""
 				};
-				composite.dayly = [["Date", "Sold that day"]];
+				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour"]];
 				composite.overall = [["Date", "Sold"]];
 
 				for (var i = 0; i < rawDataTable.length; i++) {
 					var rawEntry = rawDataTable[i];
 					var parsedDate = new Date(Date.parse(rawEntry.date));
 					var formated = parsedDate.toUTCString();
-					var entryDayly = [formated, parseInt(rawEntry.sold)];
+					var entryDayly = [formated, parseInt(rawEntry.sold),parseInt(rawEntry.hourlymax),parseInt(rawEntry.hourlymin),parseFloat(rawEntry.avg)];
 					var entryOverall = [formated, parseInt(rawEntry.max)];
 
 					composite.dayly.push(entryDayly);
@@ -45,8 +45,34 @@
 					url : 'http://nodetwo.cloudapp.net/getFactorioSalesData',
 					success : function(data) {
 						var graphdata = buildTable(data);
-						drawChart("Overall Factorio Sales", graphdata.overall, 'chart_div', function (element){ return  new google.visualization.LineChart(element)});
-						drawChart("Dayly Factorio Sales", graphdata.dayly, 'chart_div_perDay',function (element){ return  new google.visualization.ColumnChart(element)});
+
+						var optionsOverall = {
+							title : "Overall Factorio Sales", //'Company Performance',
+							hAxis : {
+								title : 'Sales',
+								titleTextStyle : {
+									color : 'red'
+								}
+							}
+						};
+						var optionsDaly = {
+							title : "Dayly Factorio Sales", //'Company Performance',
+							hAxis : {
+								title : 'Sales',
+								titleTextStyle : {
+									color : 'red'
+								}
+							},
+							seriesType: "bars",
+         					series: {3: {type: "line"}}
+						};
+
+						drawChart( graphdata.overall, optionsOverall, function(element) {
+							return new google.visualization.LineChart(document.getElementById('chart_div'))
+						});
+						drawChart( graphdata.dayly, optionsDaly, function(element) {
+							return new google.visualization.ColumnChart(document.getElementById('chart_div_perDay'))
+						});
 					},
 					error : function(err, text) {
 						$("#console").append(text);
@@ -54,27 +80,19 @@
 				});
 			}
 
-			function drawChart(title, input, target,chartFactory) {
+			function drawChart(input, options, chartFactory) {
 				var data = google.visualization.arrayToDataTable(input);
 
-				var options = {
-					title : title, //'Company Performance',
-					hAxis : {
-						title : 'Sales',
-						titleTextStyle : {
-							color : 'red'
-						}
-					}
-				};
-
-				var chart = chartFactory(document.getElementById(target)); //new google.visualization.ColumnChart();
+				var chart = chartFactory();
+				//new google.visualization.ColumnChart();
 				chart.draw(data, options);
 			}
 		</script>
 	</head>
 	<body>
-		<div id="chart_div" style="width: 900px; height: 500px;"></div>
-		<div id="chart_div_perDay" style="width: 900px; height: 500px;"></div>
+		<div id="chart_div" style="width: 700px; height: 450px;"></div>
+		<div id="chart_div_perDay" style="width: 700px; height: 450px;"></div>
+
 		<div id="console"></div>
 	</body>
 </html>
