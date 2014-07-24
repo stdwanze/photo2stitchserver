@@ -12,7 +12,7 @@
 	      }
    		</style>
 		<script type="text/javascript">
-			var fake = false;
+			var fake = true;
 			var fakeData = JSON.parse("[{\"_date\":\"8_6_2014\",\"max\":35783,\"min\":35754,\"sold\":29,\"date\":\"2014-07-08T23:00:02.635Z\",\"avg\":3.2222222222222223,\"hourlymax\":9,\"hourlymin\":1},{\"_date\":\"9_6_2014\",\"max\":35874,\"min\":35785,\"sold\":89,\"date\":\"2014-07-09T23:00:03.158Z\",\"avg\":3.7083333333333335,\"hourlymax\":11,\"hourlymin\":1},{\"_date\":\"10_6_2014\",\"max\":35965,\"min\":35878,\"sold\":87,\"date\":\"2014-07-10T23:00:03.631Z\",\"avg\":3.625,\"hourlymax\":11,\"hourlymin\":1},{\"_date\":\"11_6_2014\",\"max\":36055,\"min\":35969,\"sold\":86,\"date\":\"2014-07-11T23:00:03.302Z\",\"avg\":3.5833333333333335,\"hourlymax\":8,\"hourlymin\":1},{\"_date\":\"12_6_2014\",\"max\":36142,\"min\":36056,\"sold\":86,\"date\":\"2014-07-12T23:00:03.705Z\",\"avg\":3.5833333333333335,\"hourlymax\":12,\"hourlymin\":1},{\"_date\":\"13_6_2014\",\"max\":36262,\"min\":36143,\"sold\":119,\"date\":\"2014-07-13T23:00:03.158Z\",\"avg\":4.958333333333333,\"hourlymax\":10,\"hourlymin\":2},{\"_date\":\"14_6_2014\",\"max\":36359,\"min\":36264,\"sold\":95,\"date\":\"2014-07-14T23:00:03.150Z\",\"avg\":3.9583333333333335,\"hourlymax\":15,\"hourlymin\":1},{\"_date\":\"15_6_2014\",\"max\":36436,\"min\":36362,\"sold\":74,\"date\":\"2014-07-15T23:00:02.753Z\",\"avg\":3.0833333333333335,\"hourlymax\":8,\"hourlymin\":1},{\"_date\":\"16_6_2014\",\"max\":36503,\"min\":36438,\"sold\":65,\"date\":\"2014-07-16T23:00:02.362Z\",\"avg\":2.7083333333333335,\"hourlymax\":11,\"hourlymin\":1},{\"_date\":\"17_6_2014\",\"max\":36580,\"min\":36506,\"sold\":74,\"date\":\"2014-07-17T23:00:03.078Z\",\"avg\":3.0833333333333335,\"hourlymax\":6,\"hourlymin\":1},{\"_date\":\"18_6_2014\",\"max\":36640,\"min\":36583,\"sold\":57,\"date\":\"2014-07-18T23:00:02.880Z\",\"avg\":2.375,\"hourlymax\":7,\"hourlymin\":1},{\"_date\":\"19_6_2014\",\"max\":36713,\"min\":36640,\"sold\":73,\"date\":\"2014-07-19T23:00:03.117Z\",\"avg\":3.0416666666666665,\"hourlymax\":7,\"hourlymin\":1},{\"_date\":\"20_6_2014\",\"max\":36789,\"min\":36716,\"sold\":73,\"date\":\"2014-07-20T23:00:03.184Z\",\"avg\":3.0416666666666665,\"hourlymax\":9,\"hourlymin\":1},{\"_date\":\"21_6_2014\",\"max\":36853,\"min\":36792,\"sold\":61,\"date\":\"2014-07-21T23:00:03.240Z\",\"avg\":2.5416666666666665,\"hourlymax\":7,\"hourlymin\":1},{\"_date\":\"22_6_2014\",\"max\":36880,\"min\":36856,\"sold\":24,\"date\":\"2014-07-22T13:00:03.273Z\",\"avg\":1.7142857142857142,\"hourlymax\":4,\"hourlymin\":1}]");
 			if (fake) {
 				$.ajax = function(config) {
@@ -78,7 +78,7 @@
 					dayly : ""
 				};
 				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour","7-Day Projected"]];
-				composite.overall = [["Date", "Sold","7-Day Projected"]];
+				composite.overall = [["Date", "Sold","14-Day Projected"]];
 				
 				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);});
 				var solddailybase = makeArray(rawDataTable,function (entry){ return parseInt(entry.sold);});
@@ -94,7 +94,7 @@
 					
 					if(i > 0)
 					{
-						var avggrowth = avg(foldArray(getHistoryWindow(soldbase,7,i)));
+						var avggrowth = avg(foldArray(getHistoryWindow(soldbase,14,i)));
 						var avggrowthDaily = avg(foldArray(getHistoryWindow(solddailybase,7,i)));
 						
 						projectedOverall = !isNaN(avggrowth)? soldbase[i-1]+avggrowth : soldbase[i];
