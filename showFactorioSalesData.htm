@@ -112,12 +112,16 @@
 				}
 				return composite;
 			}
-
+			function removeFirst(array)
+			{
+				 var a = array.splice(0,1);
+				 return array;
+			}
 			function loadAndDraw() {
 				$.ajax({
 					url : 'http://nodetwo.cloudapp.net/getFactorioSalesData',
 					success : function(data) {
-						var graphdata = buildTable(data);
+						var graphdata = buildTable(removeFirst(data));
 
 						var optionsOverall = {
 							title : "Overall Factorio Sales", //'Company Performance',
