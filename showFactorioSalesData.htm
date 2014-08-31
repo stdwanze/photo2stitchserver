@@ -71,6 +71,14 @@
 				}
 				return ret;
 			}
+			function ensureValid(value)
+			{
+				if( value == 999999999)
+				{
+					return 0;
+				}
+				return value;
+			}
 
 			function buildTable(rawDataTable) {
 				var composite = {
@@ -104,7 +112,7 @@
 						projectedOverall = parseInt(rawEntry.max);
 						projectedDaily = parseInt(rawEntry.sold);
 					}
-					var entryDayly = [formated, parseInt(rawEntry.sold),parseInt(rawEntry.hourlymax),parseInt(rawEntry.hourlymin),parseFloat(rawEntry.avg),projectedDaily];
+					var entryDayly = [formated, parseInt(rawEntry.sold),parseInt(rawEntry.hourlymax),ensureValid(parseInt(rawEntry.hourlymin)),parseFloat(rawEntry.avg),projectedDaily];
 					var entryOverall = [formated, parseInt(rawEntry.max),projectedOverall];
 					
 					composite.dayly.push(entryDayly);
