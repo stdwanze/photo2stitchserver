@@ -134,7 +134,7 @@
 						projectedDaily = parseInt(rawEntry.sold);
 					}
 					//parseInt(rawEntry.sold)
-					var entryDayly = [formated, soldbase[i],parseInt(rawEntry.hourlymax),ensureValid(parseInt(rawEntry.hourlymin)),parseFloat(rawEntry.avg),projectedDaily];
+					var entryDayly = [formated, solddailybase[i],parseInt(rawEntry.hourlymax),ensureValid(parseInt(rawEntry.hourlymin)),parseFloat(rawEntry.avg),projectedDaily];
 					var entryOverall = [formated, parseInt(rawEntry.max),projectedOverall];
 					
 					composite.dayly.push(entryDayly);
