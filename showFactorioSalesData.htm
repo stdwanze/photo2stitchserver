@@ -77,6 +77,21 @@
 				}
 				return ret;
 			}
+			function makeArray2(complex, accessor, accessorFirst)
+			{
+				var ret = [];
+				for (var i = 0; i < complex.length; i++) {
+					if(i == 0){
+						ret.push(accessorFirst(complex[i]));
+					}
+					else 
+					{
+						ret.push(accessor(complex[i])-accessor(complex[i-1]));
+					}
+				}
+				return ret;
+			}
+			
 			function ensureValid(value)
 			{
 				if( value == 999999999)
@@ -95,7 +110,7 @@
 				composite.overall = [["Date", "Sold","14-Day Projected"]];
 				
 				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);});
-				var solddailybase = makeArray(rawDataTable,function (entry){ return parseInt(entry.sold);});
+				var solddailybase = makeArray2(rawDataTable,function (entry){ return parseInt(entry.max);},function (entry){ return parseInt(entry.sold);});
 				
 					
 				for (var i = 0; i < rawDataTable.length; i++) {
