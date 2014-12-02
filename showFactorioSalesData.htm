@@ -57,11 +57,17 @@
 			function avg(array)
 			{
 				var ret = 0;
+				var greaterNullEntries = 0;
 				for (var i = 0; i < array.length; i++) {
 					
-					ret += array[i];
+					if(array[i] > 0)
+					{
+						ret += array[i];
+						greaterNullEntries++;
+					}
 				}
-				return ret/array.length;
+				if(greaterNullEntries == 0) greaterNullEntries = 1;
+				return ret/greaterNullEntries;
 			}
 			function makeArray(complex, accessor)
 			{
@@ -85,7 +91,7 @@
 					overall : "",
 					dayly : ""
 				};
-				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour","7-Day Projected"]];
+				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour","7-Day Avg"]];
 				composite.overall = [["Date", "Sold","14-Day Projected"]];
 				
 				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);});
@@ -103,10 +109,10 @@
 					if(i > 0)
 					{
 						var avggrowth = avg(foldArray(getHistoryWindow(soldbase,14,i)));
-						var avggrowthDaily = avg(foldArray(getHistoryWindow(solddailybase,7,i)));
+						var avggrowthDaily = avg(getHistoryWindow(solddailybase,7,i));
 						
 						projectedOverall = !isNaN(avggrowth)? soldbase[i-1]+avggrowth : soldbase[i];
-						projectedDaily = !isNaN(avggrowthDaily)? solddailybase[i-1]+avggrowthDaily : solddailybase[i];
+						projectedDaily = !isNaN(avggrowthDaily)? avggrowthDaily : solddailybase[i];
 					}
 					else {
 						projectedOverall = parseInt(rawEntry.max);
