@@ -5,9 +5,9 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 		factorioDataService.GetDaylyPerformance = function (callback)
 		{
 			var results = {
-				start: Date.now();
-				end: null;
-				elapsed: null;
+				start: Date.now(),
+				end: null,
+				elapsed: null,
 			}
 			factorioDataService.GetDayly(function (){
 				
