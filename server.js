@@ -40,6 +40,17 @@ router.registerHandler(function(req, response) {
 
 }, "/getFactorioSalesData", ["GET"]);
 
+router.registerHandler(function(req, response) {
+
+	facservice.GetDaylyPerformance(function (result){
+		response.writeHead(200, {
+			"Content-Type" : "application/json"
+		});
+		response.write(JSON.stringify(result));
+		response.end();
+	});
+
+}, "/getFactorioSalesDataPerformance", ["GET"]);
 
 server.registerRouter(router);
 server.run();

@@ -2,6 +2,20 @@ var MongoClient = require('mongodb').MongoClient, format = require('util').forma
 
 var factorioDataService = factorioDataService || {}; ( function(factorioDataService) {
 
+		factorioDataService.GetDaylyPerformance = function (callback)
+		{
+			var results = {
+				start: Date.now();
+				end: null;
+				elapsed: null;
+			}
+			factorioDataService.GetDayly(function (){
+				
+				results.end = Date.now();
+				results.elapsed = (end - start) / 1000;
+				callback(results);
+			})
+		};
 		factorioDataService.GetDayly = function(callback) {
 
 			MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
