@@ -12,9 +12,9 @@ var factorioDataService = factorioDataService || {}; ( function(factorioDataServ
 			factorioDataService.GetDayly(function (){
 				
 				results.end = Date.now();
-				results.elapsed = (end - start) / 1000;
+				results.elapsed = (results.end - results.start) / 1000;
 				callback(results);
-			})
+			});
 		};
 		factorioDataService.GetDayly = function(callback) {
 
