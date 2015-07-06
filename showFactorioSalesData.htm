@@ -63,15 +63,8 @@
 				}
 				return ret/array.length;
 			}
-			function makeArray(complex, accessor, itemcount)
+			function makeArray(complex, accessor)
 			{
-				var i = 0;
-				if(complex.lenth > itemcount)
-				{
-					i = complex.length - itemcount;
-				}
-				
-				
 				var ret = [];
 				for (var i = 0; i < complex.length; i++) {
 						ret.push(accessor(complex[i]));
@@ -87,8 +80,8 @@
 				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour","7-Day Projected"]];
 				composite.overall = [["Date", "Sold","14-Day Projected"]];
 				
-				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);},300);
-				var solddailybase = makeArray(rawDataTable,function (entry){ return parseInt(entry.sold);},300);
+				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);});
+				var solddailybase = makeArray(rawDataTable,function (entry){ return parseInt(entry.sold);});
 				
 					
 				for (var i = 0; i < rawDataTable.length; i++) {
