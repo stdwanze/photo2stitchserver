@@ -70,29 +70,20 @@
 				if(greaterNullEntries == 0) greaterNullEntries = 1;
 				return ret/greaterNullEntries;
 			}
-			function makeArray(complex, accessor, itemcount)
+			function makeArray(complex, accessor)
 			{
-				var i = 0;
-				if(complex.length > itemcount)
-				{
-					i = complex.length - itemcount;
-				}
 				
 				var ret = [];
-				for ( i ; i < complex.length; i++) {
+				for (var i = 0 ; i < complex.length; i++) {
 						ret.push(accessor(complex[i]));
 				}
 				return ret;
 			}
-			function makeArray2(complex, accessor, accessorFirst, itemcount)
+			function makeArray2(complex, accessor, accessorFirst)
 			{
-				var i = 0;
-				if(complex.length > itemcount)
-				{
-					i = complex.length - itemcount;
-				}
+				
 				var ret = [];
-				for ( i ; i < complex.length; i++) {
+				for ( var i = 0 ; i < complex.length; i++) {
 					if(i == 0){
 						ret.push(accessorFirst(complex[i]));
 					}
@@ -145,17 +136,29 @@
 				}
 				return ret;
 			}
-
+			function constrain(rawDataTable, count)
+			{
+				if(rawDataTable.length > count)
+				{
+					var start = rawDataTable.length - count;
+					
+					return  rawDataTable.slice(start);
+				}
+				return rawDataTable;
+			}
 			function buildTable(rawDataTable) {
 				var composite = {
 					overall : "",
 					dayly : ""
 				};
+				
+				rawDataTable = constrain(rawDataTable);
+								
 				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour","7-Day Avg"]];
 				composite.overall = [["Date", "Sold","14-Day Projected"]];
 				rawDataTable = fixHoles(rawDataTable);
-				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);},300);
-				var solddailybase = makeArray2(rawDataTable,function (entry){ return parseInt(entry.max);},function (entry){ return parseInt(entry.sold);},300);
+				var soldbase = makeArray(rawDataTable,function (entry){ return parseInt(entry.max);});
+				var solddailybase = makeArray2(rawDataTable,function (entry){ return parseInt(entry.max);},function (entry){ return parseInt(entry.sold);});
 				
 					
 				for (var i = 0; i < rawDataTable.length; i++) {
