@@ -152,7 +152,7 @@
 					dayly : ""
 				};
 				
-				rawDataTable = constrain(rawDataTable);
+				rawDataTable = constrain(rawDataTable, 320);
 								
 				composite.dayly = [["Date", "Sold that day","Max Per Hour","Min Per Hour","Avg per Hour","7-Day Avg"]];
 				composite.overall = [["Date", "Sold","14-Day Projected"]];
